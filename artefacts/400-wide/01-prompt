@@ -1,0 +1,8 @@
+Paste your context file (or fallback) into AI. Prompt: "Generate a Mermaid C4Context diagram for Meridian Phase 1. Personas: Customer (web + mobile), Store Associate (POS), Marketing Ops (campaigns). External: Stripe, SAP ECC, regional CRMs, Auth0, SendGrid. Label every Rel with a verb phrase and protocol. Specific product names, not category labels." Save as 01-context.mmd. Render.
+Apply L1 self-check: is Auth0 inside the focal box (it shouldn't be — Phase 1 keeps it as external)? Are payment webhooks shown going back from Stripe? Does every Rel have a label? Fix and re-render.
+Prompt: "Now generate the matching Mermaid C4Container diagram for Phase 1. Containers inside Meridian: Web App (Next.js), Mobile App (React Native), Apollo GraphQL Gateway, Identity Service, Cart Service, Checkout Service, Order Event Bus (Kafka), Inventory Read Cache (Redis), Order Database (PostgreSQL on RDS). Label each container with technology. Label every cross-process Rel with protocol." Save as 02-containers.mmd. Render.
+Check the L2 against the C4 notation rules: every Container() has a technology in the 3rd parameter ("Node.js / Apollo", not only "GraphQL"); every cross-process Rel() has a protocol ("JSON/HTTPS", "AMQP", "SQL/TCP"); at least one ContainerDb and one ContainerQueue are present; no deployment topology shows (no load balancers or replica counts — those belong in a Deployment Diagram); SAP ECC and Auth0 are System_Ext. The most common AI failure: a "god container" Apollo Gateway that swallows identity, cart, and checkout — force the AI to split them, and to show Kafka as a ContainerQueue.
+Add inbound webhook Rel() from Stripe and any regional CRM that pushes back.
+Save both .mmd files in meridian-arch-pack/.
+
+

@@ -1,0 +1,18 @@
+1. Paste your arch pack + the Meridian constraints and pain points into AI. Prompt: "Produce 7 NFR budgets for Meridian Phase 1 covering five families: latency, cost, quality, reliability, and security & compliance. Each must have: (a) a concrete number or a binary gate — not a band, not 'TBD'; (b) the container(s) responsible (from 02-containers.mmd); (c) a test approach that can run in CI; (d) one quote from the Meridian brief that justifies the number."
+2. Review the AI output for cargo-culted numbers. The two most common: latency target of < 100ms for EU checkout (impossible — PSD2 SCA round-trip alone is 500–1500ms), and 99.999% availability (five-nines is a $10M/year commitment Meridian has not budgeted for). Use the reference ranges in Wide Theory Topic 4.
+3. Write the table:
+| # | NFR | Family | Container(s) | Target | Test approach | Meridian justification |
+|---|-----|--------|-------------|--------|---------------|----------------------|
+| 1 | Cart-to-checkout p95 latency | Latency | Apollo Gateway → Cart → Checkout | p95 < 1500ms (EU, incl. PSD2 SCA) | Synthetic checkout from each region nightly | "PSD2 SCA for EU payments" — SCA round-trip dominates |
+| 2 | Black Friday peak RPS | Reliability | Apollo Gateway, Cart Service, Checkout Service | 8000 RPS sustained, 12000 RPS burst (10 min) | Load test on PR merge to release branch | "Black Friday 2024 had a 40-minute outage in the EU" |
+| 3 | Inventory accuracy | Quality | Inventory Cache (Redis), Kafka stock-event topic | < 2% phantom-stock cancellation on click-and-collect | Daily reconciliation Cache vs SAP ECC | "~7% of click-and-collect orders cancelled at pickup due to phantom stock" |
+| 4 | Platform availability | Reliability | Apollo Gateway + Checkout Service + Auth0 SLA | 99.95% per region per month, excluding planned maintenance | Uptime monitor + SLO dashboard, alert at 99.92% | "No acceptable downtime window — stores must keep selling" |
+| 5 | Cost per checkout transaction | Cost | All Phase 1 hot-path containers + Stripe fees | < $0.04 / completed checkout (excl. payment processor fees) | Daily cost-allocation report from AWS CUR, broken down by container | "$42M over 18 months" + 31% revenue digital share — unit economics matter |
+| 6 | Identity service auth latency | Latency | Identity Service + Auth0 | p95 < 250ms (token verify + session refresh) | Synthetic auth-flow probe every 60s per region | "Customer creates an account on web, can't use it in-store" — identity must not gate the POS |
+| 7 | EU SCA completion & PII boundary | Security & compliance | Checkout Service + payment gateway + PII-scrub stage | 100% of EU card payments complete PSD2 SCA; 0 PII fields outside the PCI trust boundary | CI control-conformance check + nightly egress/data-residency scan | "PSD2 SCA for EU payments"; "PCI-DSS Level 1" |
+
+
+
+4. For each row, name an anti-pattern that would silently violate it. Example for NFR #3: "anti-pattern: hydrating the inventory cache lazily on first request — guarantees phantom stock during peak."
+
+

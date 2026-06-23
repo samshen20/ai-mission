@@ -1,0 +1,4 @@
+Write the user story for the decided change (AS a shopper / I WANT / SO THAT).
+Read the 4 base AC supplied below (happy path + empty states).
+Fill one testable clause per AI dimension — confidence, refusal/fallback, latency, disclosure, feedback, negative.
+Compare with the answer key; tighten any clause that isn't falsifiable.

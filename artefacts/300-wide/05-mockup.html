@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Availability Freshness Indicator — Click & Collect Mockup</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #f2f2f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .phone {
+    width: 390px;
+    max-width: 100%;
+    background: #fff;
+    border-radius: 36px;
+    overflow: hidden;
+    box-shadow: 0 0 0 3px #1a1a1a, 0 0 0 6px #333, 0 20px 60px rgba(0,0,0,0.25);
+    position: relative;
+  }
+
+  /* Status bar */
+  .status-bar {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 12px 24px 8px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* Header */
+  .header {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 8px 16px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .header .back { font-size: 22px; cursor: pointer; opacity: 0.8; }
+  .header .back:hover { opacity: 1; }
+  .header .title { font-size: 15px; font-weight: 600; flex: 1; text-align: center; }
+  .header .spacer { width: 24px; }
+
+  /* Screens container */
+  .screens { position: relative; min-height: 620px; }
+  .screen { display: none; padding: 0 0 24px; }
+  .screen.active { display: block; }
+
+  /* Product hero */
+  .product-hero {
+    background: linear-gradient(135deg, #e8e8ed 0%, #f5f5f8 100%);
+    padding: 24px;
+    text-align: center;
+  }
+  .product-hero .product-img {
+    width: 180px; height: 180px;
+    background: #d1d1d6;
+    border-radius: 16px;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 64px;
+  }
+  .product-hero h1 {
+    font-size: 20px; font-weight: 700;
+    color: #1a1a1a; margin-bottom: 4px;
+  }
+  .product-hero .subtitle {
+    font-size: 14px; color: #6e6e73;
+  }
+  .product-hero .price {
+    font-size: 22px; font-weight: 700;
+    color: #1a1a1a; margin-top: 8px;
+  }
+
+  /* Section */
+  .section { padding: 20px 16px; }
+  .section-title {
+    font-size: 16px; font-weight: 700;
+    color: #1a1a1a; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .section-title .info-icon {
+    display: inline-flex; width: 18px; height: 18px;
+    border-radius: 50%; border: 1.5px solid #8e8e93;
+    align-items: center; justify-content: center;
+    font-size: 11px; color: #8e8e93;
+    cursor: pointer; font-weight: 600;
+    transition: all 0.15s;
+  }
+  .section-title .info-icon:hover {
+    background: #e8e8ed; border-color: #48484a;
+  }
+
+  /* Store card */
+  .store-card {
+    background: #f9f9fb;
+    border: 1px solid #e5e5ea;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+  }
+  .store-card:hover { background: #f0f0f5; border-color: #d1d1d6; }
+  .store-card:active { transform: scale(0.985); }
+
+  .store-card .store-header {
+    display: flex; justify-content: space-between;
+    align-items: flex-start; margin-bottom: 10px;
+  }
+  .store-card .store-name {
+    font-size: 15px; font-weight: 600;
+    color: #1a1a1a;
+  }
+  .store-card .store-distance {
+    font-size: 13px; color: #6e6e73;
+  }
+  .store-card .store-meta {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: #48484a;
+    flex-wrap: wrap;
+  }
+
+  /* Freshness badge */
+  .freshness-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 3px 10px; border-radius: 20px;
+    font-size: 12px; font-weight: 600;
+  }
+  .freshness-badge.fresh {
+    background: #e8f5e9; color: #2e7d32;
+  }
+  .freshness-badge.stale {
+    background: #fff3e0; color: #e65100;
+  }
+
+  /* Quantity indicator */
+  .qty-indicator {
+    font-size: 14px; font-weight: 700;
+    color: #1a1a1a;
+  }
+  .qty-indicator .qty-num { font-size: 18px; }
+
+  /* Velocity explainer */
+  .velocity {
+    font-size: 12px; color: #6e6e73;
+    margin-top: 4px;
+  }
+
+  /* CTA */
+  .cta-row { display: flex; gap: 10px; margin-top: 12px; }
+  .btn {
+    flex: 1; padding: 12px 16px;
+    border-radius: 12px; font-size: 14px; font-weight: 600;
+    text-align: center; cursor: pointer; border: none;
+    transition: all 0.15s;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary { background: #1a1a1a; color: #fff; }
+  .btn-primary:hover { background: #333; }
+  .btn-outline {
+    background: #fff; color: #1a1a1a;
+    border: 1.5px solid #d1d1d6;
+  }
+  .btn-outline:hover { border-color: #1a1a1a; }
+  .btn-amber {
+    background: #fff3e0; color: #e65100;
+    border: 1.5px solid #ffcc80;
+  }
+  .btn-amber:hover { background: #ffe0b2; }
+
+  /* Expanded detail (Screen 2) */
+  .detail-header {
+    background: #1a1a1a; color: #fff;
+    padding: 16px; text-align: center;
+  }
+  .detail-header .store-title {
+    font-size: 17px; font-weight: 700;
+  }
+  .detail-header .store-sub {
+    font-size: 13px; color: #aeaeb2; margin-top: 4px;
+  }
+
+  .detail-card {
+    margin: 16px; padding: 20px;
+    background: #f9f9fb; border: 1px solid #e5e5ea;
+    border-radius: 16px;
+  }
+  .detail-card .big-freshness {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 16px;
+  }
+  .detail-card .big-qty {
+    font-size: 36px; font-weight: 800; color: #1a1a1a;
+  }
+  .detail-card .detail-row {
+    display: flex; justify-content: space-between;
+    padding: 10px 0; border-top: 1px solid #e5e5ea;
+    font-size: 14px;
+  }
+  .detail-card .detail-row .label { color: #6e6e73; }
+  .detail-card .detail-row .value { font-weight: 600; color: #1a1a1a; }
+
+  /* Velocity block */
+  .velocity-block {
+    margin: 0 16px 16px; padding: 14px 16px;
+    background: #e8f5e9; border-radius: 12px;
+    font-size: 13px; color: #2e7d32;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .velocity-block .vel-icon { font-size: 20px; }
+
+  /* Disclosure panel */
+  .disclosure {
+    margin: 0 16px 16px; padding: 14px 16px;
+    background: #f5f5f7; border-radius: 12px;
+    border: 1px solid #e5e5ea;
+    font-size: 12px; color: #6e6e73; line-height: 1.5;
+    display: none;
+  }
+  .disclosure.visible { display: block; }
+  .disclosure strong { color: #48484a; }
+
+  /* Low-confidence screen (Screen 3) */
+  .uncertainty-banner {
+    margin: 16px; padding: 16px;
+    background: #fff3e0; border: 1.5px solid #ffcc80;
+    border-radius: 16px; text-align: center;
+  }
+  .uncertainty-banner .warn-icon {
+    font-size: 36px; margin-bottom: 8px;
+  }
+  .uncertainty-banner h3 {
+    font-size: 16px; font-weight: 700;
+    color: #e65100; margin-bottom: 6px;
+  }
+  .uncertainty-banner p {
+    font-size: 13px; color: #bf360c; line-height: 1.5;
+  }
+
+  /* Low-confidence label */
+  .low-confidence-tag {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #fff3e0; color: #e65100;
+    padding: 4px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    border: 1px solid #ffcc80;
+  }
+
+  /* Back link */
+  .back-link {
+    display: flex; align-items: center; gap: 4px;
+    padding: 16px 16px 0;
+    font-size: 14px; color: #48484a;
+    cursor: pointer; font-weight: 500;
+  }
+  .back-link:hover { color: #1a1a1a; }
+
+  /* Footer nav hint */
+  .nav-hint {
+    text-align: center; padding: 8px 16px 16px;
+    font-size: 11px; color: #aeaeb2;
+  }
+
+  /* Step indicator */
+  .step-dots {
+    display: flex; justify-content: center; gap: 8px;
+    padding: 8px 0 16px;
+  }
+  .step-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #d1d1d6;
+    transition: all 0.2s;
+  }
+  .step-dot.active { background: #1a1a1a; width: 24px; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <span>9:41</span>
+    <span>📶 🔋</span>
+  </div>
+
+  <!-- ==================== SCREEN 1: Product Page with Store List ==================== -->
+  <div class="screen active" id="screen1">
+    <!-- Header -->
+    <div class="header">
+      <span class="back">←</span>
+      <span class="title">Product</span>
+      <span class="spacer"></span>
+    </div>
+
+    <!-- Product Hero -->
+    <div class="product-hero">
+      <div class="product-img">🏃</div>
+      <h1>Trail Runner X9</h1>
+      <p class="subtitle">Men's Trail Running Shoes</p>
+      <p class="price">$149.00</p>
+    </div>
+
+    <!-- Click & Collect Section -->
+    <div class="section">
+      <div class="section-title">
+        Click &amp; Collect
+        <span class="info-icon" onclick="toggleDisclosure(event)" title="How is this calculated?">ⓘ</span>
+      </div>
+
+      <!-- Disclosure panel -->
+      <div class="disclosure" id="disclosure">
+        <strong>How availability is shown</strong><br>
+        Stock data refreshes from store systems every 15–30 minutes. Quantities may change between refreshes. On-shelf availability is not guaranteed. Contact the store to confirm.
+      </div>
+
+      <!-- Store 1: Fresh data -->
+      <div class="store-card" onclick="showScreen('screen2')">
+        <div class="store-header">
+          <div>
+            <div class="store-name">High Street</div>
+            <div class="store-distance">0.8 miles away</div>
+          </div>
+          <span class="freshness-badge fresh">● Fresh data</span>
+        </div>
+        <div class="store-meta">
+          <span class="qty-indicator"><span class="qty-num">4</span> units on shelf</span>
+          <span style="color:#aeaeb2;">·</span>
+          <span>Checked 12 min ago</span>
+          <span style="color:#aeaeb2;">·</span>
+          <span>8 sold today</span>
+        </div>
+        <div style="margin-top: 10px; font-size: 12px; color: #48484a;">
+          Tap for details →
+        </div>
+      </div>
+
+      <!-- Store 2: Fresh data, lower stock -->
+      <div class="store-card" onclick="showScreen('screen2')">
+        <div class="store-header">
+          <div>
+            <div class="store-name">Riverside Mall</div>
+            <div class="store-distance">1.4 miles away</div>
+          </div>
+          <span class="freshness-badge fresh">● Fresh data</span>
+        </div>
+        <div class="store-meta">
+          <span class="qty-indicator"><span class="qty-num">2</span> units on shelf</span>
+          <span style="color:#aeaeb2;">·</span>
+          <span>Checked 8 min ago</span>
+          <span style="color:#aeaeb2;">·</span>
+          <span>5 sold today</span>
+        </div>
+        <div style="margin-top: 10px; font-size: 12px; color: #48484a;">
+          Tap for details →
+        </div>
+      </div>
+
+      <!-- Store 3: STALE data — triggers Screen 3 -->
+      <div class="store-card" onclick="showScreen('screen3')" style="border-color: #ffcc80; background: #fffbf5;">
+        <div class="store-header">
+          <div>
+            <div class="store-name">Oakfield Retail Park</div>
+            <div class="store-distance">2.1 miles away</div>
+          </div>
+          <span class="freshness-badge stale">⚠ Stale data</span>
+        </div>
+        <div class="store-meta">
+          <span class="qty-indicator" style="color: #e65100;">
+            <span class="qty-num">3</span> units — may have changed
+          </span>
+          <span style="color:#aeaeb2;">·</span>
+          <span>Last checked 47 min ago</span>
+        </div>
+        <div style="margin-top: 10px; font-size: 12px; color: #e65100; font-weight: 600;">
+          Tap for details →
+        </div>
+      </div>
+
+      <!-- Store 4: No stock data — omitted per AC3, show home delivery CTA -->
+      <div style="padding: 16px; text-align: center; font-size: 14px; color: #6e6e73; background: #f9f9fb; border-radius: 14px; margin-top: 10px;">
+        Not collectable nearby?<br>
+        <span style="font-weight: 600; color: #1a1a1a; cursor: pointer; text-decoration: underline;">Free home delivery available</span>
+      </div>
+    </div>
+
+    <div class="nav-hint">Tap a store card to see details ↓</div>
+  </div>
+
+  <!-- ==================== SCREEN 2: Expanded Fresh Store Detail ==================== -->
+  <div class="screen" id="screen2">
+    <div class="header">
+      <span class="back" onclick="showScreen('screen1')">←</span>
+      <span class="title">Store Availability</span>
+      <span class="spacer"></span>
+    </div>
+
+    <div class="detail-header">
+      <div class="store-title">High Street</div>
+      <div class="store-sub">0.8 miles · Open until 20:00</div>
+    </div>
+
+    <!-- Freshness detail card -->
+    <div class="detail-card">
+      <div class="big-freshness">
+        <div class="big-qty">4</div>
+        <div>
+          <div style="font-size: 15px; font-weight: 600; color: #1a1a1a;">units on shelf</div>
+          <div style="font-size: 13px; color: #6e6e73; margin-top: 2px;">
+            <span class="freshness-badge fresh" style="font-size: 11px;">● Checked 12 min ago</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-row">
+        <span class="label">Store refreshes</span>
+        <span class="value">Every 15–30 min</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">Sync source</span>
+        <span class="value">SAP inventory</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">Distance</span>
+        <span class="value">0.8 miles</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">Last confirmed</span>
+        <span class="value">10:29 AM today</span>
+      </div>
+    </div>
+
+    <!-- Sell-through velocity -->
+    <div class="velocity-block">
+      <span class="vel-icon">📊</span>
+      <div>
+        <strong>Sold 8 today</strong> at this store<br>
+        <span style="font-size: 12px;">Sell-through velocity: ~1 per hour. At this rate, stock may deplete within 4 hours.</span>
+      </div>
+    </div>
+
+    <!-- CTA row -->
+    <div style="padding: 0 16px;">
+      <div class="cta-row">
+        <button class="btn btn-outline" onclick="showScreen('screen1')">Check other stores</button>
+        <button class="btn btn-primary">Reserve for pickup</button>
+      </div>
+      <p style="text-align: center; margin-top: 12px; font-size: 12px; color: #6e6e73;">
+        On-shelf availability is not guaranteed. Contact the store to confirm.
+      </p>
+    </div>
+
+    <div class="step-dots">
+      <div class="step-dot"></div>
+      <div class="step-dot active"></div>
+      <div class="step-dot"></div>
+    </div>
+  </div>
+
+  <!-- ==================== SCREEN 3: Low-Confidence / Stale Fallback ==================== -->
+  <div class="screen" id="screen3">
+    <div class="header">
+      <span class="back" onclick="showScreen('screen1')">←</span>
+      <span class="title">Store Availability</span>
+      <span class="spacer"></span>
+    </div>
+
+    <div class="detail-header">
+      <div class="store-title">Oakfield Retail Park</div>
+      <div class="store-sub">2.1 miles · Open until 19:00</div>
+    </div>
+
+    <!-- LOW-CONFIDENCE BANNER -->
+    <div class="uncertainty-banner">
+      <div class="warn-icon">⚠️</div>
+      <div style="display: flex; justify-content: center; margin-bottom: 8px;">
+        <span class="low-confidence-tag">⚠ Low Confidence</span>
+      </div>
+      <h3>Availability uncertain</h3>
+      <p>
+        Stock data for this store hasn't been refreshed in <strong>47 minutes</strong>.
+        The quantity shown earlier may no longer reflect what's actually on the shelf.
+      </p>
+    </div>
+
+    <!-- Stale detail card — no quantity shown -->
+    <div class="detail-card" style="border-color: #ffcc80; background: #fffbf5;">
+      <div class="big-freshness">
+        <div class="big-qty" style="color: #e65100;">—</div>
+        <div>
+          <div style="font-size: 15px; font-weight: 600; color: #e65100;">Quantity not shown</div>
+          <div style="font-size: 13px; color: #bf360c; margin-top: 2px;">
+            <span class="freshness-badge stale" style="font-size: 11px;">⚠ Last checked >30 min ago</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-row">
+        <span class="label">Data status</span>
+        <span class="value" style="color: #e65100;">Stale — may have changed</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">Last confirmed</span>
+        <span class="value">9:54 AM today</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">Sync source</span>
+        <span class="value">SAP inventory (batch)</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">Distance</span>
+        <span class="value">2.1 miles</span>
+      </div>
+    </div>
+
+    <!-- FALLBACK CTA — "Can't confirm — call the store" -->
+    <div style="padding: 0 16px;">
+      <div class="cta-row">
+        <button class="btn btn-amber" style="flex: 2;">
+          📞 Can't confirm — call the store
+        </button>
+      </div>
+      <div class="cta-row" style="margin-top: 8px;">
+        <button class="btn btn-outline" onclick="alert('Staff ping sent! The store team will confirm availability within 5–10 minutes.')">
+          Ping staff to check shelf
+        </button>
+      </div>
+      <div class="cta-row" style="margin-top: 8px;">
+        <button class="btn btn-outline" onclick="showScreen('screen1')" style="flex: 1;">
+          ← View other stores
+        </button>
+      </div>
+    </div>
+
+    <!-- Disclosure: why no quantity shown -->
+    <div style="margin: 16px; padding: 14px 16px; background: #f5f5f7; border-radius: 12px; border: 1px solid #e5e5ea; font-size: 12px; color: #6e6e73; line-height: 1.5;">
+      <strong style="color: #48484a;">Why don't I see a quantity?</strong><br>
+      Stock data refreshes from store systems every 15–30 minutes. When it has been more than 30 minutes since the last refresh, the quantity could be wrong — so we don't show it. This prevents the disappointment of arriving to find the shelf empty. <strong>Contact the store</strong> for real-time confirmation.
+    </div>
+
+    <div class="step-dots">
+      <div class="step-dot"></div>
+      <div class="step-dot"></div>
+      <div class="step-dot active"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    // Scroll to top
+    document.querySelector('.phone').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function toggleDisclosure(event) {
+    event.stopPropagation();
+    const d = document.getElementById('disclosure');
+    d.classList.toggle('visible');
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,5 @@
+timestamp,level,service,message
+2026-06-23T14:30:00Z,ERROR,payment-svc,timeout connecting to gateway
+2026-06-23T14:30:05Z,ERROR,payment-svc,timeout connecting to gateway
+2026-06-23T14:31:00Z,INFO,payment-svc,gateway recovered
+2026-06-23T15:00:00Z, warn ,  AUTH-SVC  ,  token near expiry

@@ -1,0 +1,15 @@
+Refine 3 AI-AC to design specifics using the 6-slot template (one done for you below).
+Fill 06-context.md (feature in one sentence · who uses it · technical environment · hard constraints · out-of-scope · related artifacts).
+Fill a minimal 06-spec.md (≥ 2 components + states + design tokens + linked AC + asset references).
+Run the 6-point Definition of Handoff Done; fix any fail before "shipping."
+here is an example:
+AI-AC refinement template (6 slots):
+  Component · Variant · Color token · Typography · Placement · Visual gate
+
+Definition of Handoff Done (all 6 must pass):
+  [ ] User story + base AC present
+  [ ] ≥ 3 AI-AC refined to component / variant / token / placement / visual gate
+  [ ] CONTEXT.md covers feature + audience + environment + constraints + out-of-scope
+  [ ] SPEC.md lists ≥ 2 components with states + token references
+  [ ] Asset / data reference explicit and resolvable
+  [ ] Negative AC ("must NOT") carried into SPEC.md

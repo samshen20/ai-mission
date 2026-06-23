@@ -1,0 +1,4 @@
+Draft 8–12 stories: "As a [role], I want [action], so that [outcome]." 
+Write Gherkin ACs (Given/When/Then) for the top four stories. For one story that depends on an AI capability, write its AC as an AI Eval Card stub instead (confidence threshold, refusal trigger, latency ceiling, fallback) — a probabilistic system can't be pinned by Given/When/Then alone.
+Open a fresh AI session. Prompt it as an adversary: for each story, name the missing edge cases, error paths, and NFRs.
+Patch the ACs so each top story names at least one error path and one NFR (latency, cost, accuracy, accessibility). Save to 04-stories-acs.md.

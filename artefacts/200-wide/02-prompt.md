@@ -1,0 +1,1 @@
+act as two contrasting personas (each: goal · friction · current workaround), one journey map for your feature rendered as a Mermaid journey diagram (each step carrying a 1–5 satisfaction score), and a named list of the top three unmet needs. save to 02-personas-journey.md

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meridian Phase 1 — C4 Container Diagram</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f5f7; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+  .container { background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); padding: 32px; max-width: 1500px; width: 100%; }
+  h1 { font-size: 18px; font-weight: 700; color: #1a1a1a; margin: 0 0 4px; }
+  .subtitle { font-size: 13px; color: #6e6e73; margin-bottom: 24px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Meridian Phase 1 — Container Diagram (Modular Monolith)</h1>
+  <p class="subtitle">C4 Container · 2 ContainerDb · 1 ContainerQueue · 6 Container · gateway owns no business logic</p>
+  <pre class="mermaid">
+C4Container
+  title Meridian Phase 1 — Container Diagram (Modular Monolith)
+
+  Person(customer, "Customer", "Shops via meridian.com and Meridian mobile app. Checks store availability before pickup.")
+  Person(associate, "Store Associate", "Confirms click & collect pickups and checks shelf inventory via POS terminal browser.")
+  Person(marketing, "Marketing Ops", "Creates promotional campaigns, manages loyalty offers, views performance analytics.")
+
+  System_Boundary(meridian, "Meridian Headless Commerce Platform") {
+    Container(web, "Web App", "Next.js", "Server-rendered React storefront. BFF for web channel — composes GraphQL queries for product, cart, checkout, and availability freshness views.")
+    Container(mobile, "Mobile App", "React Native", "Native mobile storefront for iOS and Android. BFF for mobile channel — compact payloads, offline-ready cart, push notification target.")
+    Container(gateway, "Apollo GraphQL Gateway", "Node.js / Apollo Server", "Unified GraphQL endpoint. Federates schemas from Identity, Cart, and Checkout services. Validates Auth0 access tokens at entry. Routes queries and mutations; owns no business logic.")
+    Container(identity, "Identity Service", "Node.js / Express + PostgreSQL", "Customer profiles, consent records, loyalty tier state. Validates and resolves user profile claims against Auth0. Syncs customer segments and loyalty tier changes to Salesforce Marketing Cloud. Publishes identity and loyalty events.")
+    Container(cart, "Cart Service", "Node.js / Express + Redis", "Session-anchored cart state. Reads shelf availability from Inventory Read Cache to serve freshness indicators. Publishes cart lifecycle events.")
+    Container(checkout, "Checkout Service", "Node.js / Express", "Order placement, payment orchestration via Stripe, fulfillment state machine. Dispatches transactional emails via SendGrid. Writes order records. Publishes order and payment events.")
+    ContainerQueue(eventbus, "Order Event Bus", "Apache Kafka", "Immutable event log for all commerce actions — CartItemAdded, OrderPlaced, PaymentAuthorised, LoyaltyTierChanged, ConsentUpdated. Backbone for eventual service extraction to Approach B.")
+    ContainerDb(inventory, "Inventory Read Cache", "Redis", "Per-store-SKU shelf quantities and sell-through velocity. Populated from SAP ECC batch files. Read by Cart Service to serve availability freshness indicators.")
+    ContainerDb(orders, "Order Database", "PostgreSQL", "Order, payment, fulfillment, and collection records. Write-owner is Checkout Service. Read by Gateway for order-status queries via gRPC to Checkout Service.")
+  }
+
+  System_Ext(stripe, "Stripe", "Payment processing — credit cards, local payment methods, PSD2 Strong Customer Authentication.")
+  System_Ext(sap, "SAP ECC", "Enterprise inventory master — batch-syncs store-level stock quantities every 15–30 minutes.")
+  System_Ext(crm, "Salesforce Marketing Cloud", "Regional CRM — customer segmentation, campaign orchestration, loyalty tier management.")
+  System_Ext(auth0, "Auth0", "Customer identity — SSO, social login, MFA, GDPR consent management, cross-country tenant federation.")
+  System_Ext(sendgrid, "SendGrid", "Transactional email — order confirmation, pickup ready, post-collection micro-survey.")
+
+  Rel(customer, web, "Browses products, adds to cart, checks out, views store availability freshness", "JSON/HTTPS")
+  Rel(customer, mobile, "Browses products, checks store availability on the go", "JSON/HTTPS")
+  Rel(customer, auth0, "Logs in, registers, resets password via hosted login page", "OAuth 2.0 / OIDC")
+  Rel(associate, web, "Confirms click & collect pickups, checks on-shelf inventory via POS browser", "JSON/HTTPS")
+  Rel(marketing, web, "Creates campaigns, views loyalty dashboards and sell-through analytics", "JSON/HTTPS")
+
+  Rel(web, gateway, "Queries cart, checkout, catalogue, and availability freshness via unified GraphQL", "JSON/HTTPS")
+  Rel(mobile, gateway, "Queries cart, checkout, catalogue, and availability freshness via unified GraphQL", "JSON/HTTPS")
+
+  Rel(gateway, identity, "Resolves authentication context, customer profile, consent records, and loyalty tier", "gRPC")
+  Rel(gateway, cart, "Resolves cart read/write, add-to-cart mutations, and store availability queries", "gRPC")
+  Rel(gateway, checkout, "Resolves checkout mutations and order-status reads", "gRPC")
+
+  Rel(cart, inventory, "Reads latest shelf quantities and sell-through velocity per store-SKU", "RESP/TCP")
+  Rel(cart, eventbus, "Publishes CartItemAdded, CartItemRemoved, CartAbandoned events", "Kafka/TCP")
+  Rel(checkout, eventbus, "Publishes OrderPlaced, PaymentAuthorised, PaymentCaptured, OrderFulfilled events", "Kafka/TCP")
+  Rel(identity, eventbus, "Publishes CustomerRegistered, LoyaltyTierChanged, ConsentUpdated events", "Kafka/TCP")
+  Rel(checkout, orders, "Inserts and updates order, payment, fulfillment, and collection records", "SQL/TCP")
+
+  Rel(checkout, stripe, "Authorises payments, captures funds, processes refunds", "JSON/HTTPS")
+  Rel(stripe, checkout, "Pushes payment confirmations, dispute notices, and refund events via webhooks", "JSON/HTTPS")
+  Rel(sap, inventory, "Pushes inventory batch files — stock levels and sell-through velocity — every 15–30 min", "SFTP/IDoc, batch")
+  Rel(checkout, sap, "Pushes fulfilled order data and confirmed pickup events", "SFTP/IDoc, batch")
+  Rel(gateway, auth0, "Validates access tokens at API entry", "OAuth 2.0 / OIDC")
+  Rel(identity, auth0, "Resolves detailed user profile claims and consent records", "OAuth 2.0 / OIDC")
+  Rel(identity, crm, "Syncs customer segments, campaign eligibility, and loyalty tier changes", "JSON/HTTPS")
+  Rel(checkout, sendgrid, "Dispatches order confirmation, pickup-ready notification, and post-collection micro-survey", "JSON/HTTPS")
+  </pre>
+</div>
+<script>
+  mermaid.initialize({ startOnLoad: true, theme: 'default', securityLevel: 'loose', c4: { diagramMarginY: 10, c4ShapePadding: 20 } });
+</script>
+</body>
+</html>

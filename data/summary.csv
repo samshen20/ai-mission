@@ -1,0 +1,4 @@
+level,service,count,first_seen,last_seen
+ERROR,payment-svc,2,2026-06-23T14:30:00Z,2026-06-23T14:30:05Z
+INFO,payment-svc,1,2026-06-23T14:31:00Z,2026-06-23T14:31:00Z
+WARN,auth-svc,1,2026-06-23T15:00:00Z,2026-06-23T15:00:00Z

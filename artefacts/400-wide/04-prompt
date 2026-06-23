@@ -1,0 +1,33 @@
+1. Score the three options from 00-options.md. Prompt: "Build a trade-off matrix: rows are the three options, columns are the brief's load-bearing constraints (PSD2 SCA latency, SAP batch-update reality, junior-team operability, strangler-fig coexistence, 18-month/$42M budget). Score each cell with a one-line reason, not a number alone." Pick one option. Write two sentences on why the runners-up lost — at least one constraint where the options genuinely diverged.
+2. Scan 02-containers.mmd. Circle the three decisions whose reversal would cost the most: the chosen option from step 1, plus two more (which eventing topology, which identity provider). If you used the fallback seeds, you have them.
+3. For each decision, paste this prompt template into AI:
+
+Write an ADR for this Meridian decision.
+
+Context (paste your relevant Meridian constraints + the container diagram excerpt):
+[paste]
+
+Decision: [one-line decision]
+
+Use this format:
+# ADR-00N: [Decision title starting with a verb]
+
+## Context
+[1–2 sentences citing the Meridian constraint that forced the decision]
+
+## Decision
+We will [specific, actionable statement].
+
+## Alternatives Considered
+1. [Alternative A] — rejected because [Meridian-specific trade-off, not a generic platitude]
+2. [Alternative B] — rejected because [Meridian-specific trade-off]
+
+## Consequences
+- Positive: [what this enables for Meridian Phase 1+]
+- Negative: [what this costs Meridian — name the concrete cost]
+
+## Agent-Readable Summary
+[1–2 sentences. Must be specific enough that an AI tool generating code would know what NOT to do. NOT a restatement of the decision.]
+
+4. For each ADR, rewrite the Agent-Readable Summary until it contains a constraint, not a label. "We use Kafka" is a label. "All cross-service ordering/inventory events transit Kafka with the Outbox pattern; do not introduce direct synchronous calls between Order, Cart, and Inventory services" is a constraint.
+5. Verify the rejected alternatives are Meridian-specific (e.g., "unified Shopify Plus — rejected because Shopify's checkout cannot be customised enough to meet Italian Postepay and Japanese PayPay flows"), not generic ("more expensive"), and that ADR-001 traces back to the scoring in step 1.

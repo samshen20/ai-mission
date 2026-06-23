@@ -1,0 +1,4 @@
+Take the decided change and its AI-AC.
+Prompt the vibe-coding tool for a 3-screen flow; require the low-confidence label and the "can't confirm — call the store" fallback to appear.
+Iterate until it's clickable through the flow.
+Save the URL or screenshots as 05-mockup.html

@@ -1,0 +1,12 @@
+1. Open a fresh session. Do not continue the implementation session.
+2. Paste only spec.md and this instruction: Write pytest tests from this spec only.
+Do not read src/logsum.py.
+Cover every rule and edge case: grouping, normalisation,
+missing level, malformed timestamp, empty input, bad input exit,
+and CLI invocation. Create tests/test_logsum.py and fixtures.
+
+
+
+3. Run pytest -v.
+4. For each failure, decide: implementation bug, test bug, or spec ambiguity.
+5. Record the isolation method and the decision for one failure in test-notes.md.

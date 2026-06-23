@@ -1,0 +1,22 @@
+1. Open a planning session. Tell the AI no code may be written yet.
+2. Paste: Help me draft spec.md for a tiny CLI.
+Input: events.csv with timestamp, level, service, message.
+Output: summary.csv with one row per event group.
+Ask and answer these spec questions:
+1. Exact group key.
+2. Normalisation rules.
+3. Count only, or first_seen / last_seen too.
+4. Missing level behaviour.
+5. Malformed timestamp behaviour.
+6. Empty input behaviour.
+7. CLI flags and exit codes.
+8. Explicit out-of-scope items.
+Then write spec.md with the section list above.
+
+
+
+3. Read the spec as a stranger. 
+
+5. Save.
+
+

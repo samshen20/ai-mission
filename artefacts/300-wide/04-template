@@ -1,0 +1,15 @@
+BASE AC (supplied)
+  AC1. WHEN a product has store stock data, THEN the product page shows an
+       availability indicator per nearby store.
+  AC2. WHEN no store within range has the item, THEN show "Not collectable
+       nearby" + a delivery option.
+  AC3. WHEN stock data is missing for a store, THEN omit that store (don't guess).
+  AC4. WHEN the user taps a store, THEN show last-confirmed time + distance.
+
+AI-SPECIFIC AC (fill one testable clause each)
+  AI-AC1 (confidence): ___
+  AI-AC2 (refusal/fallback): ___
+  AI-AC3 (latency): ___
+  AI-AC4 (disclosure): ___
+  AI-AC5 (feedback): ___
+  AI-AC6 (negative AC): ___

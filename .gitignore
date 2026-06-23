@@ -1,0 +1,21 @@
+# Sensitive / local config
+.claude/jira-config.json
+.claude/settings.local.json
+.env
+.env.*
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Playwright recordings
+.playwright-mcp/
+
+# IDE
+.vscode/

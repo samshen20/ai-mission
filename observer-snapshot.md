@@ -1,0 +1,320 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - textbox "Search..." [ref=e9]
+        - generic [ref=e12]:
+          - link "Observer" [ref=e14] [cursor=pointer]:
+            - /url: https://observer.com/
+          - list [ref=e16]:
+            - listitem [ref=e17]:
+              - link "Business" [ref=e18] [cursor=pointer]:
+                - /url: https://observer.com/business/
+              - text: "|"
+            - listitem [ref=e19]:
+              - link "Art" [ref=e20] [cursor=pointer]:
+                - /url: https://observer.com/arts/
+              - text: "|"
+            - listitem [ref=e21]:
+              - link "Lifestyle" [ref=e22] [cursor=pointer]:
+                - /url: https://observer.com/lifestyle/
+          - link "Newsletters" [ref=e24] [cursor=pointer]:
+            - /url: https://observer.com/subscribe/
+    - generic [ref=e25]:
+      - generic [ref=e26]:
+        - text: Advertisement
+        - iframe [ref=e174]:
+          - generic [active] [ref=f93e1]:
+            - generic [ref=f93e4]:
+              - link [ref=f93e5] [cursor=pointer]:
+                - /url: https://www.googleadservices.com/pagead/aclk?sa=L&ai=C2iaD8_UxaurRPLe8vcAP_IS1qAXsgu3ihwG-oa_CqxSRoc-Ujw4QASDctth-YNkCoAG_wNi8KcgBCakCHnmM1HN5sz7gAgCoAwHIAwqqBOYCT9Cp4Mgaszy_fudsc9o78q0phmYGgN_8-btZyssK--jLSkvD3aeb8FzHFhuw-T3zcwXs9uZxhGJ557uwCS8hCm9fcOnJe0tgpse5RU1tHEC3TaW1XsS5GmlgOS8IpJAXVxRbN_XoIhnwZvdPmv58sPtDt4HF7rwAqCUR9IVKU238SYBE4aPEVxxqEixeC0tLppb9z93HUDzPQKsBmT75udG2hd2JsKm6noQC7nd69qEFxmLzODGp5lItnThMwkWWP3KXjaCSRVMzyJQYP78asXBVOQCHzzAC88wPn2TqbknDgq6NMXtdb4qAkLCXcVCpXWiy3BZgdA01n45Vo-O4rlKYve0kRlk2VOAFWMTJJZuKzQ9PPsF1XNVNRfOg4lhMp6P5bDj4BwxXpNSS4VU9U2PeeAqiknOvdZzFCpxThrXzuiiATn-KTgrVZUIMVhdogUzKr0gQ6vGKhIKMW09gzwazHYOqJsAE1O7Fq8gF4AQBiAWv--H8VKAGLoAHv_ionASoB6fMsQKoB-LYsQKoB6a-G6gHzM6xAqgH89EbqAeW2BuoB6qbsQKoB47OG6gHk9gbqAfw4BuoB-6WsQKoB_6esQKoB6--sQKoB9XJG6gH2baxAqgHmgaoB_-esQKoB9-fsQKoB_jCsQKoB_vCsQLYBwDSCDMIgGEQARidATIIioKAgICAgAg6D4BAgMCAgICAqIACqIOAEEi9_cE6WLTNx7mNjZUDYAGxCby_sphu0APegAoDmAsByAsBgAwBogxEYhwKGmNvbS5taW5kMzYwLm1ha2VzeW91Zmx1ZW50ahwKGmNvbS5taW5kMzYwLm1ha2VzeW91Zmx1ZW50eAGIAQGQAQGqDQJIS8gNAeINEwjQmci5jY2VAxU3Xg8CHXxCDVXqDRMIuezIuY2NlQMVN14PAh18Qg1V8A0CiA7___________8BsA6jrqrJGNgTC9AVAZgWAcoWAgoA-BYBgBcBshcQGAEqCjM4NDU4OTc2MjJQBroXAjgBqhgXCQAAAAC4PRlBEgozODQ1ODk3NjIyGAGyGAkSAoVUGC4iAQDQGAHoGAHCGQIIAQ&ae=1&gclid=EAIaIQobChMIqpfJuY2NlQMVN14PAh18Qg1VEAEYASAAEgKacfD_BwE&num=1&cid=CAQS9AEAEQoqgXZUZYluyaNWO7s-Q57_XBHxzP7ZchG5UmLt87RIOVfUUoyX-Yhv5iMzx3SrFElK3oLgDhQxlY9HpEEXeAn1vfO5qUN4NkrkhAFLVt8BCEfdEkmrBXD2spjAm9JC-V5nkbp72T-GnKQsUmyrHACttIzsKV3qwVwD7mjVmsOIjoWNXoPXADqiCKziGAGOBPco09LiBBBw6ply8RJLtlO6lKvWCO6T7hv7EqwZbNgfqRey0P22MQ6VYcm2a4MMDBmiqeiAFk5U_2RdTgGpkKLWuWHiqQiejMPqTFOiJEfHoCoLpzVpDmm01HkjdmqlinU1GAE&sig=AOD64_1SNZMF4_zG-EzOj5kealSJ_3ti3A&client=ca-pub-3998824402121602&rf=4&nb=9&adurl=https://makesyoufluent.com/victor/%3Fcmpid%3D64f9b76b96406f000150b821%26sub1%3D3_MYF_All_pMax_Victor%26sub2%3D%26sub3%3D%26sub4%3D%26sub5%3D%26sub6%3D22813972069%26sub7%3Dc%26sub8%3D%26sub9%3Dx%26sub10%3D%26ref_id%3DEAIaIQobChMIqpfJuY2NlQMVN14PAh18Qg1VEAEYASAAEgKacfD_BwE%26gad_source%3D5%26gad_campaignid%3D22810230191%26gclid%3DEAIaIQobChMIqpfJuY2NlQMVN14PAh18Qg1VEAEYASAAEgKacfD_BwE
+                - img [ref=f93e6]
+              - generic [ref=f93e8]:
+                - generic [ref=f93e11]:
+                  - link "AI Spanish Tutor" [ref=f93e15] [cursor=pointer]:
+                    - /url: https://www.googleadservices.com/pagead/aclk?sa=L&ai=C2iaD8_UxaurRPLe8vcAP_IS1qAXsgu3ihwG-oa_CqxSRoc-Ujw4QASDctth-YNkCoAG_wNi8KcgBCakCHnmM1HN5sz7gAgCoAwHIAwqqBOYCT9Cp4Mgaszy_fudsc9o78q0phmYGgN_8-btZyssK--jLSkvD3aeb8FzHFhuw-T3zcwXs9uZxhGJ557uwCS8hCm9fcOnJe0tgpse5RU1tHEC3TaW1XsS5GmlgOS8IpJAXVxRbN_XoIhnwZvdPmv58sPtDt4HF7rwAqCUR9IVKU238SYBE4aPEVxxqEixeC0tLppb9z93HUDzPQKsBmT75udG2hd2JsKm6noQC7nd69qEFxmLzODGp5lItnThMwkWWP3KXjaCSRVMzyJQYP78asXBVOQCHzzAC88wPn2TqbknDgq6NMXtdb4qAkLCXcVCpXWiy3BZgdA01n45Vo-O4rlKYve0kRlk2VOAFWMTJJZuKzQ9PPsF1XNVNRfOg4lhMp6P5bDj4BwxXpNSS4VU9U2PeeAqiknOvdZzFCpxThrXzuiiATn-KTgrVZUIMVhdogUzKr0gQ6vGKhIKMW09gzwazHYOqJsAE1O7Fq8gF4AQBiAWv--H8VKAGLoAHv_ionASoB6fMsQKoB-LYsQKoB6a-G6gHzM6xAqgH89EbqAeW2BuoB6qbsQKoB47OG6gHk9gbqAfw4BuoB-6WsQKoB_6esQKoB6--sQKoB9XJG6gH2baxAqgHmgaoB_-esQKoB9-fsQKoB_jCsQKoB_vCsQLYBwDSCDMIgGEQARidATIIioKAgICAgAg6D4BAgMCAgICAqIACqIOAEEi9_cE6WLTNx7mNjZUDYAGxCby_sphu0APegAoDmAsByAsBgAwBogxEYhwKGmNvbS5taW5kMzYwLm1ha2VzeW91Zmx1ZW50ahwKGmNvbS5taW5kMzYwLm1ha2VzeW91Zmx1ZW50eAGIAQGQAQGqDQJIS8gNAeINEwjQmci5jY2VAxU3Xg8CHXxCDVXqDRMIuezIuY2NlQMVN14PAh18Qg1V8A0CiA7___________8BsA6jrqrJGNgTC9AVAZgWAcoWAgoA-BYBgBcBshcQGAEqCjM4NDU4OTc2MjJQBroXAjgBqhgXCQAAAAC4PRlBEgozODQ1ODk3NjIyGAGyGAkSAoVUGC4iAQDQGAHoGAHCGQIIAQ&ae=1&gclid=EAIaIQobChMIqpfJuY2NlQMVN14PAh18Qg1VEAEYASAAEgKacfD_BwE&num=1&cid=CAQS9AEAEQoqgXZUZYluyaNWO7s-Q57_XBHxzP7ZchG5UmLt87RIOVfUUoyX-Yhv5iMzx3SrFElK3oLgDhQxlY9HpEEXeAn1vfO5qUN4NkrkhAFLVt8BCEfdEkmrBXD2spjAm9JC-V5nkbp72T-GnKQsUmyrHACttIzsKV3qwVwD7mjVmsOIjoWNXoPXADqiCKziGAGOBPco09LiBBBw6ply8RJLtlO6lKvWCO6T7hv7EqwZbNgfqRey0P22MQ6VYcm2a4MMDBmiqeiAFk5U_2RdTgGpkKLWuWHiqQiejMPqTFOiJEfHoCoLpzVpDmm01HkjdmqlinU1GAE&sig=AOD64_1SNZMF4_zG-EzOj5kealSJ_3ti3A&client=ca-pub-3998824402121602&rf=4&nb=0&adurl=https://makesyoufluent.com/victor/%3Fcmpid%3D64f9b76b96406f000150b821%26sub1%3D3_MYF_All_pMax_Victor%26sub2%3D%26sub3%3D%26sub4%3D%26sub5%3D%26sub6%3D22813972069%26sub7%3Dc%26sub8%3D%26sub9%3Dx%26sub10%3D%26ref_id%3DEAIaIQobChMIqpfJuY2NlQMVN14PAh18Qg1VEAEYASAAEgKacfD_BwE%26gad_source%3D5%26gad_campaignid%3D22810230191%26gclid%3DEAIaIQobChMIqpfJuY2NlQMVN14PAh18Qg1VEAEYASAAEgKacfD_BwE
+                  - link "Effective tutoring by AI to learn English, Spanish, Italian, French and German." [ref=f93e19] [cursor=pointer]:
+                    - /url: https://www.googleadservices.com/pagead/aclk?sa=L&ai=C2iaD8_UxaurRPLe8vcAP_IS1qAXsgu3ihwG-oa_CqxSRoc-Ujw4QASDctth-YNkCoAG_wNi8KcgBCakCHnmM1HN5sz7gAgCoAwHIAwqqBOYCT9Cp4Mgaszy_fudsc9o78q0phmYGgN_8-btZyssK--jLSkvD3aeb8FzHFhuw-T3zcwXs9uZxhGJ557uwCS8hCm9fcOnJe0tgpse5RU1tHEC3TaW1XsS5GmlgOS8IpJAXVxRbN_XoIhnwZvdPmv58sPtDt4HF7rwAqCUR9IVKU238SYBE4aPEVxxqEixeC0tLppb9z93HUDzPQKsBmT75udG2hd2JsKm6noQC7nd69qEFxmLzODGp5lItnThMwkWWP3KXjaCSRVMzyJQYP78asXBVOQCHzzAC88wPn2TqbknDgq6NMXtdb4qAkLCXcVCpXWiy3BZgdA01n45Vo-O4rlKYve0kRlk2VOAFWMTJJZuKzQ9PPsF1XNVNRfOg4lhMp6P5bDj4BwxXpNSS4VU9U2PeeAqiknOvdZzFCpxThrXzuiiATn-KTgrVZUIMVhdogUzKr0gQ6vGKhIKMW09gzwazHYOqJsAE1O7Fq8gF4AQBiAWv--H8VKAGLoAHv_ionASoB6fMsQKoB-LYsQKoB6a-G6gHzM6xAqgH89EbqAeW2BuoB6qbsQKoB47OG6gHk9gbqAfw4BuoB-6WsQKoB_6esQKoB6--sQKoB9XJG6gH2baxAqgHmgaoB_-esQKoB9-fsQKoB_jCsQKoB_vCsQLYBwDSCDMIgGEQARidATIIioKAgICAgAg6D4BAgMCAgICAqIACqIOAEEi9_cE6WLTNx7mNjZUDYAGxCby_sphu0APegAoDmAsByAsBgAwBogxEYhwKGmNvbS5taW5kMzYwLm1ha2VzeW91Zmx1ZW50ahwKGmNvbS5taW5kMzYwLm1ha2VzeW91Zmx1ZW50eAGIAQGQAQGqDQJIS8gNAeINEwjQmci5jY2VAxU3Xg8CHXxCDVXqDRMIuezIuY2NlQMVN14PAh18Qg1V8A0CiA7___________8BsA6jrqrJGNgTC9AVAZgWAcoWAgoA-BYBgBcBshcQGAEqCjM4NDU4OTc2MjJQBroXAjgBqhgXCQAAAAC4PRlBEgozODQ1ODk3NjIyGAGyGAkSAoVUGC4iAQDQGAHoGAHCGQIIAQ&ae=1&gclid=EAIaIQobChMIqpfJuY2NlQMVN14PAh18Qg1VEAEYASAAEgKacfD_BwE&num=1&cid=CAQS9AEAEQoqgXZUZYluyaNWO7s-Q57_XBHxzP7ZchG5UmLt87RIOVfUUoyX-Yhv5iMzx3SrFElK3oLgDhQxlY9HpEEXeAn1vfO5qUN4NkrkhAFLVt8BCEfdEkmrBXD2spjAm9JC-V5nkbp72T-GnKQsUmyrHACttIzsKV3qwVwD7mjVmsOIjoWNXoPXADqiCKziGAGOBPco09LiBBBw6ply8RJLtlO6lKvWCO6T7hv7EqwZbNgfqRey0P22MQ6VYcm2a4MMDBmiqeiAFk5U_2RdTgGpkKLWuWHiqQiejMPqTFOiJEfHoCoLpzVpDmm01HkjdmqlinU1GAE&sig=AOD64_1SNZMF4_zG-EzOj5kealSJ_3ti3A&client=ca-pub-3998824402121602&rf=4&nb=7&adurl=https://makesyoufluent.com/victor/%3Fcmpid%3D64f9b76b96406f000150b821%26sub1%3D3_MYF_All_pMax_Victor%26sub2%3D%26sub3%3D%26sub4%3D%26sub5%3D%26sub6%3D22813972069%26sub7%3Dc%26sub8%3D%26sub9%3Dx%26sub10%3D%26ref_id%3DEAIaIQobChMIqpfJuY2NlQMVN14PAh18Qg1VEAEYASAAEgKacfD_BwE%26gad_source%3D5%26gad_campaignid%3D22810230191%26gclid%3DEAIaIQobChMIqpfJuY2NlQMVN14PAh18Qg1VEAEYASAAEgKacfD_BwE
+                    - text: Effective tutoring by AI
+                    - generic [ref=f93e20]
+                - generic [ref=f93e23]:
+                  - link:
+                    - /url: https://www.googleadservices.com/pagead/aclk?sa=L&ai=C2iaD8_UxaurRPLe8vcAP_IS1qAXsgu3ihwG-oa_CqxSRoc-Ujw4QASDctth-YNkCoAG_wNi8KcgBCakCHnmM1HN5sz7gAgCoAwHIAwqqBOYCT9Cp4Mgaszy_fudsc9o78q0phmYGgN_8-btZyssK--jLSkvD3aeb8FzHFhuw-T3zcwXs9uZxhGJ557uwCS8hCm9fcOnJe0tgpse5RU1tHEC3TaW1XsS5GmlgOS8IpJAXVxRbN_XoIhnwZvdPmv58sPtDt4HF7rwAqCUR9IVKU238SYBE4aPEVxxqEixeC0tLppb9z93HUDzPQKsBmT75udG2hd2JsKm6noQC7nd69qEFxmLzODGp5lItnThMwkWWP3KXjaCSRVMzyJQYP78asXBVOQCHzzAC88wPn2TqbknDgq6NMXtdb4qAkLCXcVCpXWiy3BZgdA01n45Vo-O4rlKYve0kRlk2VOAFWMTJJZuKzQ9PPsF1XNVNRfOg4lhMp6P5bDj4BwxXpNSS4VU9U2PeeAqiknOvdZzFCpxThrXzuiiATn-KTgrVZUIMVhdogUzKr0gQ6vGKhIKMW09gzwazHYOqJsAE1O7Fq8gF4AQBiAWv--H8VKAGLoAHv_ionASoB6fMsQKoB-LYsQKoB6a-G6gHzM6xAqgH89EbqAeW2BuoB6qbsQKoB47OG6gHk9gbqAfw4BuoB-6WsQKoB_6esQKoB6--sQKoB9XJG6gH2baxAqgHmgaoB_-esQKoB9-fsQKoB_jCsQKoB_vCsQLYBwDSCDMIgGEQARidATIIioKAgICAgAg6D4BAgMCAgICAqIACqIOAEEi9_cE6WLTNx7mNjZUDYAGxCby_sphu0APegAoDmAsByAsBgAwBogxEYhwKGmNvbS5taW5kMzYwLm1ha2VzeW91Zmx1ZW50ahwKGmNvbS5taW5kMzYwLm1ha2VzeW91Zmx1ZW50eAGIAQGQAQGqDQJIS8gNAeINEwjQmci5jY2VAxU3Xg8CHXxCDVXqDRMIuezIuY2NlQMVN14PAh18Qg1V8A0CiA7___________8BsA6jrqrJGNgTC9AVAZgWAcoWAgoA-BYBgBcBshcQGAEqCjM4NDU4OTc2MjJQBroXAjgBqhgXCQAAAAC4PRlBEgozODQ1ODk3NjIyGAGyGAkSAoVUGC4iAQDQGAHoGAHCGQIIAQ&ae=1&gclid=EAIaIQobChMIqpfJuY2NlQMVN14PAh18Qg1VEAEYASAAEgKacfD_BwE&num=1&cid=CAQS9AEAEQoqgXZUZYluyaNWO7s-Q57_XBHxzP7ZchG5UmLt87RIOVfUUoyX-Yhv5iMzx3SrFElK3oLgDhQxlY9HpEEXeAn1vfO5qUN4NkrkhAFLVt8BCEfdEkmrBXD2spjAm9JC-V5nkbp72T-GnKQsUmyrHACttIzsKV3qwVwD7mjVmsOIjoWNXoPXADqiCKziGAGOBPco09LiBBBw6ply8RJLtlO6lKvWCO6T7hv7EqwZbNgfqRey0P22MQ6VYcm2a4MMDBmiqeiAFk5U_2RdTgGpkKLWuWHiqQiejMPqTFOiJEfHoCoLpzVpDmm01HkjdmqlinU1GAE&sig=AOD64_1SNZMF4_zG-EzOj5kealSJ_3ti3A&client=ca-pub-3998824402121602&rf=4&nb=8&adurl=https://makesyoufluent.com/victor/%3Fcmpid%3D64f9b76b96406f000150b821%26sub1%3D3_MYF_All_pMax_Victor%26sub2%3D%26sub3%3D%26sub4%3D%26sub5%3D%26sub6%3D22813972069%26sub7%3Dc%26sub8%3D%26sub9%3Dx%26sub10%3D%26ref_id%3DEAIaIQobChMIqpfJuY2NlQMVN14PAh18Qg1VEAEYASAAEgKacfD_BwE%26gad_source%3D5%26gad_campaignid%3D22810230191%26gclid%3DEAIaIQobChMIqpfJuY2NlQMVN14PAh18Qg1VEAEYASAAEgKacfD_BwE
+                  - link "Makes You Fluent" [ref=f93e25] [cursor=pointer]:
+                    - /url: https://www.googleadservices.com/pagead/aclk?sa=L&ai=C2iaD8_UxaurRPLe8vcAP_IS1qAXsgu3ihwG-oa_CqxSRoc-Ujw4QASDctth-YNkCoAG_wNi8KcgBCakCHnmM1HN5sz7gAgCoAwHIAwqqBOYCT9Cp4Mgaszy_fudsc9o78q0phmYGgN_8-btZyssK--jLSkvD3aeb8FzHFhuw-T3zcwXs9uZxhGJ557uwCS8hCm9fcOnJe0tgpse5RU1tHEC3TaW1XsS5GmlgOS8IpJAXVxRbN_XoIhnwZvdPmv58sPtDt4HF7rwAqCUR9IVKU238SYBE4aPEVxxqEixeC0tLppb9z93HUDzPQKsBmT75udG2hd2JsKm6noQC7nd69qEFxmLzODGp5lItnThMwkWWP3KXjaCSRVMzyJQYP78asXBVOQCHzzAC88wPn2TqbknDgq6NMXtdb4qAkLCXcVCpXWiy3BZgdA01n45Vo-O4rlKYve0kRlk2VOAFWMTJJZuKzQ9PPsF1XNVNRfOg4lhMp6P5bDj4BwxXpNSS4VU9U2PeeAqiknOvdZzFCpxThrXzuiiATn-KTgrVZUIMVhdogUzKr0gQ6vGKhIKMW09gzwazHYOqJsAE1O7Fq8gF4AQBiAWv--H8VKAGLoAHv_ionASoB6fMsQKoB-LYsQKoB6a-G6gHzM6xAqgH89EbqAeW2BuoB6qbsQKoB47OG6gHk9gbqAfw4BuoB-6WsQKoB_6esQKoB6--sQKoB9XJG6gH2baxAqgHmgaoB_-esQKoB9-fsQKoB_jCsQKoB_vCsQLYBwDSCDMIgGEQARidATIIioKAgICAgAg6D4BAgMCAgICAqIACqIOAEEi9_cE6WLTNx7mNjZUDYAGxCby_sphu0APegAoDmAsByAsBgAwBogxEYhwKGmNvbS5taW5kMzYwLm1ha2VzeW91Zmx1ZW50ahwKGmNvbS5taW5kMzYwLm1ha2VzeW91Zmx1ZW50eAGIAQGQAQGqDQJIS8gNAeINEwjQmci5jY2VAxU3Xg8CHXxCDVXqDRMIuezIuY2NlQMVN14PAh18Qg1V8A0CiA7___________8BsA6jrqrJGNgTC9AVAZgWAcoWAgoA-BYBgBcBshcQGAEqCjM4NDU4OTc2MjJQBroXAjgBqhgXCQAAAAC4PRlBEgozODQ1ODk3NjIyGAGyGAkSAoVUGC4iAQDQGAHoGAHCGQIIAQ&ae=1&gclid=EAIaIQobChMIqpfJuY2NlQMVN14PAh18Qg1VEAEYASAAEgKacfD_BwE&num=1&cid=CAQS9AEAEQoqgXZUZYluyaNWO7s-Q57_XBHxzP7ZchG5UmLt87RIOVfUUoyX-Yhv5iMzx3SrFElK3oLgDhQxlY9HpEEXeAn1vfO5qUN4NkrkhAFLVt8BCEfdEkmrBXD2spjAm9JC-V5nkbp72T-GnKQsUmyrHACttIzsKV3qwVwD7mjVmsOIjoWNXoPXADqiCKziGAGOBPco09LiBBBw6ply8RJLtlO6lKvWCO6T7hv7EqwZbNgfqRey0P22MQ6VYcm2a4MMDBmiqeiAFk5U_2RdTgGpkKLWuWHiqQiejMPqTFOiJEfHoCoLpzVpDmm01HkjdmqlinU1GAE&sig=AOD64_1SNZMF4_zG-EzOj5kealSJ_3ti3A&client=ca-pub-3998824402121602&rf=4&nb=1&adurl=https://makesyoufluent.com/victor/%3Fcmpid%3D64f9b76b96406f000150b821%26sub1%3D3_MYF_All_pMax_Victor%26sub2%3D%26sub3%3D%26sub4%3D%26sub5%3D%26sub6%3D22813972069%26sub7%3Dc%26sub8%3D%26sub9%3Dx%26sub10%3D%26ref_id%3DEAIaIQobChMIqpfJuY2NlQMVN14PAh18Qg1VEAEYASAAEgKacfD_BwE%26gad_source%3D5%26gad_campaignid%3D22810230191%26gclid%3DEAIaIQobChMIqpfJuY2NlQMVN14PAh18Qg1VEAEYASAAEgKacfD_BwE
+                  - link "Open" [ref=f93e27] [cursor=pointer]:
+                    - /url: https://www.googleadservices.com/pagead/aclk?sa=L&ai=C2iaD8_UxaurRPLe8vcAP_IS1qAXsgu3ihwG-oa_CqxSRoc-Ujw4QASDctth-YNkCoAG_wNi8KcgBCakCHnmM1HN5sz7gAgCoAwHIAwqqBOYCT9Cp4Mgaszy_fudsc9o78q0phmYGgN_8-btZyssK--jLSkvD3aeb8FzHFhuw-T3zcwXs9uZxhGJ557uwCS8hCm9fcOnJe0tgpse5RU1tHEC3TaW1XsS5GmlgOS8IpJAXVxRbN_XoIhnwZvdPmv58sPtDt4HF7rwAqCUR9IVKU238SYBE4aPEVxxqEixeC0tLppb9z93HUDzPQKsBmT75udG2hd2JsKm6noQC7nd69qEFxmLzODGp5lItnThMwkWWP3KXjaCSRVMzyJQYP78asXBVOQCHzzAC88wPn2TqbknDgq6NMXtdb4qAkLCXcVCpXWiy3BZgdA01n45Vo-O4rlKYve0kRlk2VOAFWMTJJZuKzQ9PPsF1XNVNRfOg4lhMp6P5bDj4BwxXpNSS4VU9U2PeeAqiknOvdZzFCpxThrXzuiiATn-KTgrVZUIMVhdogUzKr0gQ6vGKhIKMW09gzwazHYOqJsAE1O7Fq8gF4AQBiAWv--H8VKAGLoAHv_ionASoB6fMsQKoB-LYsQKoB6a-G6gHzM6xAqgH89EbqAeW2BuoB6qbsQKoB47OG6gHk9gbqAfw4BuoB-6WsQKoB_6esQKoB6--sQKoB9XJG6gH2baxAqgHmgaoB_-esQKoB9-fsQKoB_jCsQKoB_vCsQLYBwDSCDMIgGEQARidATIIioKAgICAgAg6D4BAgMCAgICAqIACqIOAEEi9_cE6WLTNx7mNjZUDYAGxCby_sphu0APegAoDmAsByAsBgAwBogxEYhwKGmNvbS5taW5kMzYwLm1ha2VzeW91Zmx1ZW50ahwKGmNvbS5taW5kMzYwLm1ha2VzeW91Zmx1ZW50eAGIAQGQAQGqDQJIS8gNAeINEwjQmci5jY2VAxU3Xg8CHXxCDVXqDRMIuezIuY2NlQMVN14PAh18Qg1V8A0CiA7___________8BsA6jrqrJGNgTC9AVAZgWAcoWAgoA-BYBgBcBshcQGAEqCjM4NDU4OTc2MjJQBroXAjgBqhgXCQAAAAC4PRlBEgozODQ1ODk3NjIyGAGyGAkSAoVUGC4iAQDQGAHoGAHCGQIIAQ&ae=1&gclid=EAIaIQobChMIqpfJuY2NlQMVN14PAh18Qg1VEAEYASAAEgKacfD_BwE&num=1&cid=CAQS9AEAEQoqgXZUZYluyaNWO7s-Q57_XBHxzP7ZchG5UmLt87RIOVfUUoyX-Yhv5iMzx3SrFElK3oLgDhQxlY9HpEEXeAn1vfO5qUN4NkrkhAFLVt8BCEfdEkmrBXD2spjAm9JC-V5nkbp72T-GnKQsUmyrHACttIzsKV3qwVwD7mjVmsOIjoWNXoPXADqiCKziGAGOBPco09LiBBBw6ply8RJLtlO6lKvWCO6T7hv7EqwZbNgfqRey0P22MQ6VYcm2a4MMDBmiqeiAFk5U_2RdTgGpkKLWuWHiqQiejMPqTFOiJEfHoCoLpzVpDmm01HkjdmqlinU1GAE&sig=AOD64_1SNZMF4_zG-EzOj5kealSJ_3ti3A&client=ca-pub-3998824402121602&rf=4&nb=8&adurl=https://makesyoufluent.com/victor/%3Fcmpid%3D64f9b76b96406f000150b821%26sub1%3D3_MYF_All_pMax_Victor%26sub2%3D%26sub3%3D%26sub4%3D%26sub5%3D%26sub6%3D22813972069%26sub7%3Dc%26sub8%3D%26sub9%3Dx%26sub10%3D%26ref_id%3DEAIaIQobChMIqpfJuY2NlQMVN14PAh18Qg1VEAEYASAAEgKacfD_BwE%26gad_source%3D5%26gad_campaignid%3D22810230191%26gclid%3DEAIaIQobChMIqpfJuY2NlQMVN14PAh18Qg1VEAEYASAAEgKacfD_BwE
+                  - link [ref=f93e28] [cursor=pointer]:
+                    - /url: https://www.googleadservices.com/pagead/aclk?sa=L&ai=C2iaD8_UxaurRPLe8vcAP_IS1qAXsgu3ihwG-oa_CqxSRoc-Ujw4QASDctth-YNkCoAG_wNi8KcgBCakCHnmM1HN5sz7gAgCoAwHIAwqqBOYCT9Cp4Mgaszy_fudsc9o78q0phmYGgN_8-btZyssK--jLSkvD3aeb8FzHFhuw-T3zcwXs9uZxhGJ557uwCS8hCm9fcOnJe0tgpse5RU1tHEC3TaW1XsS5GmlgOS8IpJAXVxRbN_XoIhnwZvdPmv58sPtDt4HF7rwAqCUR9IVKU238SYBE4aPEVxxqEixeC0tLppb9z93HUDzPQKsBmT75udG2hd2JsKm6noQC7nd69qEFxmLzODGp5lItnThMwkWWP3KXjaCSRVMzyJQYP78asXBVOQCHzzAC88wPn2TqbknDgq6NMXtdb4qAkLCXcVCpXWiy3BZgdA01n45Vo-O4rlKYve0kRlk2VOAFWMTJJZuKzQ9PPsF1XNVNRfOg4lhMp6P5bDj4BwxXpNSS4VU9U2PeeAqiknOvdZzFCpxThrXzuiiATn-KTgrVZUIMVhdogUzKr0gQ6vGKhIKMW09gzwazHYOqJsAE1O7Fq8gF4AQBiAWv--H8VKAGLoAHv_ionASoB6fMsQKoB-LYsQKoB6a-G6gHzM6xAqgH89EbqAeW2BuoB6qbsQKoB47OG6gHk9gbqAfw4BuoB-6WsQKoB_6esQKoB6--sQKoB9XJG6gH2baxAqgHmgaoB_-esQKoB9-fsQKoB_jCsQKoB_vCsQLYBwDSCDMIgGEQARidATIIioKAgICAgAg6D4BAgMCAgICAqIACqIOAEEi9_cE6WLTNx7mNjZUDYAGxCby_sphu0APegAoDmAsByAsBgAwBogxEYhwKGmNvbS5taW5kMzYwLm1ha2VzeW91Zmx1ZW50ahwKGmNvbS5taW5kMzYwLm1ha2VzeW91Zmx1ZW50eAGIAQGQAQGqDQJIS8gNAeINEwjQmci5jY2VAxU3Xg8CHXxCDVXqDRMIuezIuY2NlQMVN14PAh18Qg1V8A0CiA7___________8BsA6jrqrJGNgTC9AVAZgWAcoWAgoA-BYBgBcBshcQGAEqCjM4NDU4OTc2MjJQBroXAjgBqhgXCQAAAAC4PRlBEgozODQ1ODk3NjIyGAGyGAkSAoVUGC4iAQDQGAHoGAHCGQIIAQ&ae=1&gclid=EAIaIQobChMIqpfJuY2NlQMVN14PAh18Qg1VEAEYASAAEgKacfD_BwE&num=1&cid=CAQS9AEAEQoqgXZUZYluyaNWO7s-Q57_XBHxzP7ZchG5UmLt87RIOVfUUoyX-Yhv5iMzx3SrFElK3oLgDhQxlY9HpEEXeAn1vfO5qUN4NkrkhAFLVt8BCEfdEkmrBXD2spjAm9JC-V5nkbp72T-GnKQsUmyrHACttIzsKV3qwVwD7mjVmsOIjoWNXoPXADqiCKziGAGOBPco09LiBBBw6ply8RJLtlO6lKvWCO6T7hv7EqwZbNgfqRey0P22MQ6VYcm2a4MMDBmiqeiAFk5U_2RdTgGpkKLWuWHiqQiejMPqTFOiJEfHoCoLpzVpDmm01HkjdmqlinU1GAE&sig=AOD64_1SNZMF4_zG-EzOj5kealSJ_3ti3A&client=ca-pub-3998824402121602&rf=4&nb=8&adurl=https://makesyoufluent.com/victor/%3Fcmpid%3D64f9b76b96406f000150b821%26sub1%3D3_MYF_All_pMax_Victor%26sub2%3D%26sub3%3D%26sub4%3D%26sub5%3D%26sub6%3D22813972069%26sub7%3Dc%26sub8%3D%26sub9%3Dx%26sub10%3D%26ref_id%3DEAIaIQobChMIqpfJuY2NlQMVN14PAh18Qg1VEAEYASAAEgKacfD_BwE%26gad_source%3D5%26gad_campaignid%3D22810230191%26gclid%3DEAIaIQobChMIqpfJuY2NlQMVN14PAh18Qg1VEAEYASAAEgKacfD_BwE
+                    - generic [ref=f93e30]
+            - generic [ref=f93e38]:
+              - link [ref=f93e40] [cursor=pointer]:
+                - /url: https://adssettings.google.com/whythisad?source=display&reasons=AXOIBo-gYgW8Se45PO_2nw6dkNMTuuwA1B48gXXf7mBtqywM3gXuRw7xV3_vUSgd58lhQJPL4uDHL9ktgyoD_nBe3G0W6wC7Ocz9F6yY2Yq_xx9Hh2kcEBHqGv4j5EwkAuAUdq_8BGTDwD3mIEwaHpC_3TNTg3YOC8tlQzI-RwLFOzJp2wb21O9lsq0OVU_N_D7xELbXf5ks_PJzFK5Jl6x2gmT9RyJQ4srk2p8KxUAGtcjQLDZBs94lBEg7tCzgirlg_vlF4Q22wEXoQ4WRzhH6K-pdmSSSPusR4ekXWAcWgmVaP3_aQBfB5KqpSwAYRGHBhR5lBXG2k94zbAZWtTSMaSKB92iedwmfp2fqkBbL-gs-1gfgXySIfJ9RM0bKjzLYnmzQrH3V6_j8WkXabPYnYVoSKFFY1ThHHr_HjHLKrrfTo4PuF4qHCiF1PLTfC_UOAwZ0BWJxhkIYQr7yVIEAQ5JhkkjbZPskSm3TEZcnpeOysK4s0EcMGBHF859k6zN3KHA_L3_zSo7eQSvxG9lo-wbI3G21nay68sQqXtn0j3hjuBeW4Q-qwgte2hvbXayZEmSeMN34Q43cwxcAlEkdEmCW0DVGSDrs2mXufYWRe1hv8GVzSxZe_uLm-YiEKzVD_qCnQiH4Fim_MjfnswqzVEEvHWsTrxMKAdznCagHrTatt33P22p_UH2zLoM--xWcRByacMvAZKyvek3GftMFgSxClteUPMHwnz2-eamKyzpqZdsNIgdfRWNlyQqLmCa3NeP8vS3SLFbhIpzTt9atnD3wA358o9mguacgoU_ZeMVbl_SKmD1ssargKd7NJWXxTAUchwCwZt3WV1vv9IjGEeZPbwi-76YVvMkDMJTv73ZVvuijlUYqrmaXUJ_m-ioTVd8gvw2N5y46N5Tg13REG1nIeohmlpTevWo59nYRXVRpo8Gl5svxv0kckXO5S5pv79-CyR31exi733j2O2G9rfIH7RYG4S_E0UhrheGDY2_Y_Zgp6reIL7Kg2iyVsOI5AyncsNlyMEKqUFdtEUPIPmKhueLyuCSTPZplhfVLLp_rxve1Ex5o5rl-Uzufsixh3CvYZ7wWhnw3zF-4uxoTJQxQIUYs3nhGXCYrEPYg_rc4dIgXeqaXked4QI1ga65URbjwgsLLp6TKL76G_k20mQUMmMZ9kyMupZ7QLio0ekI7WDDfjWSO-EOmxjzi93w3uF59sukHfn_JLRR-br35OCnLAc4L3JRbK69llI_HOx08X8V7WhmEILTpH4E8eCc0j9OZh8FQ7HwXqyKZlSWknavjd97GKH1krAIlxEXMsEUe52vUYZUkPxKC1-peHcY-H58xAzYD-vqxZfbGoqUwd0GBzl5YDnCzyH0za4vGN5TLen1UDFdviNXHYG2ZWFWv-gGAZCssGfZebfLXCPp5QtY-0YXQNQApV2_SIyjmEQYjpPlSMtU8mNQw9hTSy7u6hNXqLwmDVp2keyyqwDpC-YdvpnMZeLMuRx3VnzRC9D7L44sHuGElVSFRoFotOsG_I7xvZbjXjyKHkdAV2wluhMiWeJ8tR3kczZ2xFnT9u0v_rG7hG29y4J0RvLLrCE9iGJkvqSFpdGyibfCvcGTFo8eLKtLMKXGMMSx6cs-4JjyKYQ8PIKtR8nr809-gEPm4kYcXNVZkHjBXFCucyhY7G2Ewn7_ppplYmcCxY7AChPT2jCEJOkbZe8uOwi3geOFzirw1qFVZcMuKuo4arVgg0vmb6O-kSf8STZiJg-mmdRi0H51W7X63h5naPzs2-JSE5v-gePr6njVxoeHBksmdLi2oLqJ5tzy3GUtCIpruQVm95AzS1cz3yVMTGK6F5bq3Q0TZ9ZNlacjOCUiX4GcY3ugsh2nuV-cjw7oT4JFv8kL-oHP-76aJX2IOyTnbpkZuQWG9HlFvAuwDTyn9cWoTImmcmdhQuWk31ZUoevpxEQRkWk6lkNBd4Jr_GLCC-SoY0_iJSHBug4U3-BGwUEshplN-FinrR1Nc7qshf85DngNtxlExVykFgH8pFxLrwpCK-9SrEVIYa7QthZH-GwEYNPG5jYgrw5AlsDjN9ZGWpDTzJIo8Ga8ILBiSU9Qi59txg564yB4foOPUyV6tjbXPm8qUurdVekVceKwEB8ekW7YlRohTafbVEuMXCruJrE2UKsQeRIMrK_Es1_RFGn7Q0MojsXKSC1lsTn0ArBrDKyxMMOxEMamdkjAy78sLotjoDAP-wDWwTg9T_ixTrDi1G2wA4pQ_18CKpWtPHzFLWixy5d97FgE8e6szZKgYP-AqNyoKLgIdyFARnbMBDzsOo7rTzGDQBimN1PlOetgqnpQZeUSniOSUXpPpZf7ds0Khe0npnDnBW1HTpYvT1rrtoK1h5MD9lOfG3GVK96afm8o6VcOA6d1WV8EFEfLS1dzrv47LEYOxxQBmuFgRFJKdQCpdyoGXeeDjQOq0QMjMOx-ngiHN3qeyuexw6vw7YUYTRFv9zKoGnjMJ7-cHujWG8-GmeetZtR5n6kZcskFMAzSAa-XnhqisV-QzRRcyjhM87UPHgfQcF4NN93iIyCcQmVQ41SHIij9Wb5wVf3N-8KSjm46xxK97OxUpx9vr2kK1cNTuCg01grEtRAv7mqxR99XGGhxNsCpvsYmW0hrFxnngpUCDpk7AEsHLy5wmcjsV84WlZnh-JvRrAEYTh6VhRAbPZiwIKcx6y0MmGuh-Kngw_WAA23_atDrolQd3ouuoMF642SHaoMgWhEqxzp7_x-eRLkuZa2Jhl59DwmRm5Wrq_6hPslyfkrrLKAhTp9COvnDui5gdfGwjELw5hQEH_MYx_Kiszo9ivHY8hy_5QvFRDM317yTJmhAVKptzZlaKD4Yf-Z4WnTAwQS5kD20wqW1cIaO6wbbhxXZEa8XmdEG4F2peldRCsbfkiK3mklvfg7ny8dA&opi=122715837
+                - img [ref=f93e42]
+              - link [ref=f93e44] [cursor=pointer]:
+                - /url: https://adssettings.google.com/whythisad?source=display&reasons=AXOIBo-gYgW8Se45PO_2nw6dkNMTuuwA1B48gXXf7mBtqywM3gXuRw7xV3_vUSgd58lhQJPL4uDHL9ktgyoD_nBe3G0W6wC7Ocz9F6yY2Yq_xx9Hh2kcEBHqGv4j5EwkAuAUdq_8BGTDwD3mIEwaHpC_3TNTg3YOC8tlQzI-RwLFOzJp2wb21O9lsq0OVU_N_D7xELbXf5ks_PJzFK5Jl6x2gmT9RyJQ4srk2p8KxUAGtcjQLDZBs94lBEg7tCzgirlg_vlF4Q22wEXoQ4WRzhH6K-pdmSSSPusR4ekXWAcWgmVaP3_aQBfB5KqpSwAYRGHBhR5lBXG2k94zbAZWtTSMaSKB92iedwmfp2fqkBbL-gs-1gfgXySIfJ9RM0bKjzLYnmzQrH3V6_j8WkXabPYnYVoSKFFY1ThHHr_HjHLKrrfTo4PuF4qHCiF1PLTfC_UOAwZ0BWJxhkIYQr7yVIEAQ5JhkkjbZPskSm3TEZcnpeOysK4s0EcMGBHF859k6zN3KHA_L3_zSo7eQSvxG9lo-wbI3G21nay68sQqXtn0j3hjuBeW4Q-qwgte2hvbXayZEmSeMN34Q43cwxcAlEkdEmCW0DVGSDrs2mXufYWRe1hv8GVzSxZe_uLm-YiEKzVD_qCnQiH4Fim_MjfnswqzVEEvHWsTrxMKAdznCagHrTatt33P22p_UH2zLoM--xWcRByacMvAZKyvek3GftMFgSxClteUPMHwnz2-eamKyzpqZdsNIgdfRWNlyQqLmCa3NeP8vS3SLFbhIpzTt9atnD3wA358o9mguacgoU_ZeMVbl_SKmD1ssargKd7NJWXxTAUchwCwZt3WV1vv9IjGEeZPbwi-76YVvMkDMJTv73ZVvuijlUYqrmaXUJ_m-ioTVd8gvw2N5y46N5Tg13REG1nIeohmlpTevWo59nYRXVRpo8Gl5svxv0kckXO5S5pv79-CyR31exi733j2O2G9rfIH7RYG4S_E0UhrheGDY2_Y_Zgp6reIL7Kg2iyVsOI5AyncsNlyMEKqUFdtEUPIPmKhueLyuCSTPZplhfVLLp_rxve1Ex5o5rl-Uzufsixh3CvYZ7wWhnw3zF-4uxoTJQxQIUYs3nhGXCYrEPYg_rc4dIgXeqaXked4QI1ga65URbjwgsLLp6TKL76G_k20mQUMmMZ9kyMupZ7QLio0ekI7WDDfjWSO-EOmxjzi93w3uF59sukHfn_JLRR-br35OCnLAc4L3JRbK69llI_HOx08X8V7WhmEILTpH4E8eCc0j9OZh8FQ7HwXqyKZlSWknavjd97GKH1krAIlxEXMsEUe52vUYZUkPxKC1-peHcY-H58xAzYD-vqxZfbGoqUwd0GBzl5YDnCzyH0za4vGN5TLen1UDFdviNXHYG2ZWFWv-gGAZCssGfZebfLXCPp5QtY-0YXQNQApV2_SIyjmEQYjpPlSMtU8mNQw9hTSy7u6hNXqLwmDVp2keyyqwDpC-YdvpnMZeLMuRx3VnzRC9D7L44sHuGElVSFRoFotOsG_I7xvZbjXjyKHkdAV2wluhMiWeJ8tR3kczZ2xFnT9u0v_rG7hG29y4J0RvLLrCE9iGJkvqSFpdGyibfCvcGTFo8eLKtLMKXGMMSx6cs-4JjyKYQ8PIKtR8nr809-gEPm4kYcXNVZkHjBXFCucyhY7G2Ewn7_ppplYmcCxY7AChPT2jCEJOkbZe8uOwi3geOFzirw1qFVZcMuKuo4arVgg0vmb6O-kSf8STZiJg-mmdRi0H51W7X63h5naPzs2-JSE5v-gePr6njVxoeHBksmdLi2oLqJ5tzy3GUtCIpruQVm95AzS1cz3yVMTGK6F5bq3Q0TZ9ZNlacjOCUiX4GcY3ugsh2nuV-cjw7oT4JFv8kL-oHP-76aJX2IOyTnbpkZuQWG9HlFvAuwDTyn9cWoTImmcmdhQuWk31ZUoevpxEQRkWk6lkNBd4Jr_GLCC-SoY0_iJSHBug4U3-BGwUEshplN-FinrR1Nc7qshf85DngNtxlExVykFgH8pFxLrwpCK-9SrEVIYa7QthZH-GwEYNPG5jYgrw5AlsDjN9ZGWpDTzJIo8Ga8ILBiSU9Qi59txg564yB4foOPUyV6tjbXPm8qUurdVekVceKwEB8ekW7YlRohTafbVEuMXCruJrE2UKsQeRIMrK_Es1_RFGn7Q0MojsXKSC1lsTn0ArBrDKyxMMOxEMamdkjAy78sLotjoDAP-wDWwTg9T_ixTrDi1G2wA4pQ_18CKpWtPHzFLWixy5d97FgE8e6szZKgYP-AqNyoKLgIdyFARnbMBDzsOo7rTzGDQBimN1PlOetgqnpQZeUSniOSUXpPpZf7ds0Khe0npnDnBW1HTpYvT1rrtoK1h5MD9lOfG3GVK96afm8o6VcOA6d1WV8EFEfLS1dzrv47LEYOxxQBmuFgRFJKdQCpdyoGXeeDjQOq0QMjMOx-ngiHN3qeyuexw6vw7YUYTRFv9zKoGnjMJ7-cHujWG8-GmeetZtR5n6kZcskFMAzSAa-XnhqisV-QzRRcyjhM87UPHgfQcF4NN93iIyCcQmVQ41SHIij9Wb5wVf3N-8KSjm46xxK97OxUpx9vr2kK1cNTuCg01grEtRAv7mqxR99XGGhxNsCpvsYmW0hrFxnngpUCDpk7AEsHLy5wmcjsV84WlZnh-JvRrAEYTh6VhRAbPZiwIKcx6y0MmGuh-Kngw_WAA23_atDrolQd3ouuoMF642SHaoMgWhEqxzp7_x-eRLkuZa2Jhl59DwmRm5Wrq_6hPslyfkrrLKAhTp9COvnDui5gdfGwjELw5hQEH_MYx_Kiszo9ivHY8hy_5QvFRDM317yTJmhAVKptzZlaKD4Yf-Z4WnTAwQS5kD20wqW1cIaO6wbbhxXZEa8XmdEG4F2peldRCsbfkiK3mklvfg7ny8dA&opi=122715837
+                - img [ref=f93e46]
+            - img [ref=f93e49] [cursor=pointer]
+            - generic [ref=f93e60]:
+              - img [ref=f93e63]
+              - generic [ref=f93e66]:
+                - text: Ads by
+                - img [ref=f93e67]
+              - generic [ref=f93e70]:
+                - generic [ref=f93e73] [cursor=pointer]: Send feedback
+                - link [ref=f93e75] [cursor=pointer]:
+                  - /url: https://adssettings.google.com/whythisad?source=display&reasons=AXOIBo-gYgW8Se45PO_2nw6dkNMTuuwA1B48gXXf7mBtqywM3gXuRw7xV3_vUSgd58lhQJPL4uDHL9ktgyoD_nBe3G0W6wC7Ocz9F6yY2Yq_xx9Hh2kcEBHqGv4j5EwkAuAUdq_8BGTDwD3mIEwaHpC_3TNTg3YOC8tlQzI-RwLFOzJp2wb21O9lsq0OVU_N_D7xELbXf5ks_PJzFK5Jl6x2gmT9RyJQ4srk2p8KxUAGtcjQLDZBs94lBEg7tCzgirlg_vlF4Q22wEXoQ4WRzhH6K-pdmSSSPusR4ekXWAcWgmVaP3_aQBfB5KqpSwAYRGHBhR5lBXG2k94zbAZWtTSMaSKB92iedwmfp2fqkBbL-gs-1gfgXySIfJ9RM0bKjzLYnmzQrH3V6_j8WkXabPYnYVoSKFFY1ThHHr_HjHLKrrfTo4PuF4qHCiF1PLTfC_UOAwZ0BWJxhkIYQr7yVIEAQ5JhkkjbZPskSm3TEZcnpeOysK4s0EcMGBHF859k6zN3KHA_L3_zSo7eQSvxG9lo-wbI3G21nay68sQqXtn0j3hjuBeW4Q-qwgte2hvbXayZEmSeMN34Q43cwxcAlEkdEmCW0DVGSDrs2mXufYWRe1hv8GVzSxZe_uLm-YiEKzVD_qCnQiH4Fim_MjfnswqzVEEvHWsTrxMKAdznCagHrTatt33P22p_UH2zLoM--xWcRByacMvAZKyvek3GftMFgSxClteUPMHwnz2-eamKyzpqZdsNIgdfRWNlyQqLmCa3NeP8vS3SLFbhIpzTt9atnD3wA358o9mguacgoU_ZeMVbl_SKmD1ssargKd7NJWXxTAUchwCwZt3WV1vv9IjGEeZPbwi-76YVvMkDMJTv73ZVvuijlUYqrmaXUJ_m-ioTVd8gvw2N5y46N5Tg13REG1nIeohmlpTevWo59nYRXVRpo8Gl5svxv0kckXO5S5pv79-CyR31exi733j2O2G9rfIH7RYG4S_E0UhrheGDY2_Y_Zgp6reIL7Kg2iyVsOI5AyncsNlyMEKqUFdtEUPIPmKhueLyuCSTPZplhfVLLp_rxve1Ex5o5rl-Uzufsixh3CvYZ7wWhnw3zF-4uxoTJQxQIUYs3nhGXCYrEPYg_rc4dIgXeqaXked4QI1ga65URbjwgsLLp6TKL76G_k20mQUMmMZ9kyMupZ7QLio0ekI7WDDfjWSO-EOmxjzi93w3uF59sukHfn_JLRR-br35OCnLAc4L3JRbK69llI_HOx08X8V7WhmEILTpH4E8eCc0j9OZh8FQ7HwXqyKZlSWknavjd97GKH1krAIlxEXMsEUe52vUYZUkPxKC1-peHcY-H58xAzYD-vqxZfbGoqUwd0GBzl5YDnCzyH0za4vGN5TLen1UDFdviNXHYG2ZWFWv-gGAZCssGfZebfLXCPp5QtY-0YXQNQApV2_SIyjmEQYjpPlSMtU8mNQw9hTSy7u6hNXqLwmDVp2keyyqwDpC-YdvpnMZeLMuRx3VnzRC9D7L44sHuGElVSFRoFotOsG_I7xvZbjXjyKHkdAV2wluhMiWeJ8tR3kczZ2xFnT9u0v_rG7hG29y4J0RvLLrCE9iGJkvqSFpdGyibfCvcGTFo8eLKtLMKXGMMSx6cs-4JjyKYQ8PIKtR8nr809-gEPm4kYcXNVZkHjBXFCucyhY7G2Ewn7_ppplYmcCxY7AChPT2jCEJOkbZe8uOwi3geOFzirw1qFVZcMuKuo4arVgg0vmb6O-kSf8STZiJg-mmdRi0H51W7X63h5naPzs2-JSE5v-gePr6njVxoeHBksmdLi2oLqJ5tzy3GUtCIpruQVm95AzS1cz3yVMTGK6F5bq3Q0TZ9ZNlacjOCUiX4GcY3ugsh2nuV-cjw7oT4JFv8kL-oHP-76aJX2IOyTnbpkZuQWG9HlFvAuwDTyn9cWoTImmcmdhQuWk31ZUoevpxEQRkWk6lkNBd4Jr_GLCC-SoY0_iJSHBug4U3-BGwUEshplN-FinrR1Nc7qshf85DngNtxlExVykFgH8pFxLrwpCK-9SrEVIYa7QthZH-GwEYNPG5jYgrw5AlsDjN9ZGWpDTzJIo8Ga8ILBiSU9Qi59txg564yB4foOPUyV6tjbXPm8qUurdVekVceKwEB8ekW7YlRohTafbVEuMXCruJrE2UKsQeRIMrK_Es1_RFGn7Q0MojsXKSC1lsTn0ArBrDKyxMMOxEMamdkjAy78sLotjoDAP-wDWwTg9T_ixTrDi1G2wA4pQ_18CKpWtPHzFLWixy5d97FgE8e6szZKgYP-AqNyoKLgIdyFARnbMBDzsOo7rTzGDQBimN1PlOetgqnpQZeUSniOSUXpPpZf7ds0Khe0npnDnBW1HTpYvT1rrtoK1h5MD9lOfG3GVK96afm8o6VcOA6d1WV8EFEfLS1dzrv47LEYOxxQBmuFgRFJKdQCpdyoGXeeDjQOq0QMjMOx-ngiHN3qeyuexw6vw7YUYTRFv9zKoGnjMJ7-cHujWG8-GmeetZtR5n6kZcskFMAzSAa-XnhqisV-QzRRcyjhM87UPHgfQcF4NN93iIyCcQmVQ41SHIij9Wb5wVf3N-8KSjm46xxK97OxUpx9vr2kK1cNTuCg01grEtRAv7mqxR99XGGhxNsCpvsYmW0hrFxnngpUCDpk7AEsHLy5wmcjsV84WlZnh-JvRrAEYTh6VhRAbPZiwIKcx6y0MmGuh-Kngw_WAA23_atDrolQd3ouuoMF642SHaoMgWhEqxzp7_x-eRLkuZa2Jhl59DwmRm5Wrq_6hPslyfkrrLKAhTp9COvnDui5gdfGwjELw5hQEH_MYx_Kiszo9ivHY8hy_5QvFRDM317yTJmhAVKptzZlaKD4Yf-Z4WnTAwQS5kD20wqW1cIaO6wbbhxXZEa8XmdEG4F2peldRCsbfkiK3mklvfg7ny8dA&opi=122715837
+                  - generic [ref=f93e76]:
+                    - text: Why this ad?
+                    - img [ref=f93e77]
+            - generic [ref=f93e79]:
+              - generic [ref=f93e82] [cursor=pointer]: Ad was inappropriate
+              - generic [ref=f93e85] [cursor=pointer]: Ad covered content
+              - generic [ref=f93e88] [cursor=pointer]: Seen this ad multiple times
+              - generic [ref=f93e91] [cursor=pointer]: Not interested in this ad
+            - generic [ref=f93e97]: Thanks. Feedback improves Google ads
+            - generic [ref=f93e103]:
+              - text: Ad closed by
+              - img [ref=f93e104]
+      - generic [ref=e27]:
+        - main [ref=e29]:
+          - generic [ref=e30]:
+            - article [ref=e31]:
+              - generic [ref=e32]:
+                - generic [ref=e33]:
+                  - link "Read more articles on Business" [ref=e34] [cursor=pointer]:
+                    - /url: https://observer.com/business/
+                    - text: Business
+                  - text: •
+                  - link "Read more articles on Finance" [ref=e35] [cursor=pointer]:
+                    - /url: https://observer.com/finance/
+                    - text: Finance
+                  - text: •
+                  - link "Read more articles on Expert Insights" [ref=e36] [cursor=pointer]:
+                    - /url: https://observer.com/column/expert-insights/
+                    - text: Expert Insights
+                - heading "Climate Risk Is Rewriting the Logic of Global Insurance" [level=1] [ref=e37]
+                - heading "Two announcements ten days apart, a March reinsurance report and a COP30 finance decision are retiring the operating assumption of the last forty years in real time." [level=2] [ref=e38]
+                - generic [ref=e39]:
+                  - text: By
+                  - link "Stuart J. Green" [ref=e41] [cursor=pointer]:
+                    - /url: https://observer.com/author/stuart-j-green/
+                  - text: •
+                  - time [ref=e43]: 05/28/26 2:00pm
+                  - list [ref=e44]:
+                    - listitem [ref=e45]
+                    - listitem [ref=e47]
+                    - listitem [ref=e49]
+                    - listitem [ref=e51]
+              - generic [ref=e53]:
+                - figure "As insurers retreat from climate-exposed markets, governments and investors are quietly abandoning the assumption that systems can return to their old equilibrium. Photo by Jeff Gritchen/MediaNews Group/Orange County Register via Getty Images" [ref=e54]:
+                  - img "Image of fires" [ref=e55]
+                  - generic [ref=e56]: As insurers retreat from climate-exposed markets, governments and investors are quietly abandoning the assumption that systems can return to their old equilibrium. Photo by Jeff Gritchen/MediaNews Group/Orange County Register via Getty Images
+                - paragraph [ref=e57]:
+                  - text: In 2018, California’s insurer of last resort carried roughly 127,000 policyholders. By the end of 2025, it carried more than 668,000, with residential exposure approaching $603 billion in June 2025, a 424 percent increase since 2020. The Palisades and Eaton fires in January 2025 resulted in an estimated
+                  - link "$40 billion in insured losses" [ref=e58] [cursor=pointer]:
+                    - /url: https://www.latimes.com/environment/story/2025-12-16/los-angeles-fires-push-insurers-disaster-losses-to-107-billion-for-2025
+                  - text: and forced the FAIR Plan to issue a $1 billion assessment to member insurers, the first such call since the 1994 Northridge earthquake. State Farm, Allstate and Chubb have
+                  - link "withdrawn from writing new homeowner business" [ref=e59] [cursor=pointer]:
+                    - /url: https://www.bankrate.com/insurance/homeowners-insurance/carriers-exit-california-home-insurance/
+                  - text: in California. According to the UCLA Luskin California Poll published in January 2026, more than
+                  - link "one in five California homeowners" [ref=e60] [cursor=pointer]:
+                    - /url: https://luskin.ucla.edu/some-homeowners-are-going-without-insurance-but-choosing-to-stay-put
+                  - text: have dropped their home insurance because their policies were canceled or premiums had become unaffordable. The withdrawal is no longer cyclical. It is structural.
+                - generic [ref=e62]:
+                  - img [ref=e64]
+                  - generic [ref=e67]:
+                    - heading "Sign Up For Our Daily Newsletter" [level=2] [ref=e69]
+                    - generic [ref=e71]
+                    - link "See all of our newsletters" [ref=e74] [cursor=pointer]:
+                      - /url: https://observer.com/subscribe/
+                - paragraph [ref=e75]: Similar retrenchment pressures are emerging in Florida and Louisiana, where escalating hurricane losses are destabilizing private insurance markets, as well as in parts of Australia and southern Europe that are confronting intensifying wildfire exposure. What is unfolding is a broader repricing of climate risk across global insurance markets.
+                - text: Advertisement
+                - generic [ref=e76]: Advertisement
+                - paragraph [ref=e77]:
+                  - text: Swiss Re’s Sigma 1/2026 report, published in March,
+                  - link "made the structural argument explicit" [ref=e78] [cursor=pointer]:
+                    - /url: https://www.swissre.com/institute/research/sigma-research/sigma-2026-01-natcat-2025-wildfire-storm-risk.html
+                  - text: . Global insured natural catastrophe losses reached $107 billion in 2025 against total economic losses of $220 billion, with 92 percent of the insured total coming from wildfires, severe convective storms and floods. Balz Grollimund, who heads catastrophe perils at Swiss Re, observed that “the upward trend in insured losses is structural” and modeled a peak-loss scenario for 2026 exceeding $320 billion. The conditions are no longer a deviation from the baseline. They are the baseline.
+                - paragraph [ref=e79]: Resilience, as the governing concept of the last forty years, assumed a stable baseline worth returning to. Insurance markets, regulatory regimes, infrastructure design and corporate strategy were scaled on the working hypothesis that disturbance was followed by recovery to a known state. That hypothesis has now been priced out of the market that was meant to underwrite it. Climate is the trigger. The baseline is the subject.
+                - paragraph [ref=e80]:
+                  - text: On Oct. 9, 2025, Gov. Gavin Newsom signed
+                  - link "bipartisan legislation overhauling the FAIR Plan" [ref=e81] [cursor=pointer]:
+                    - /url: https://www.gov.ca.gov/2025/10/09/governor-newsom-signs-bipartisan-package-of-bills-reforming-californias-insurer-of-last-resort
+                  - text: . Ten days later, in Oslo, Norges Bank Investment Management
+                  - link "published its 2030 Climate Action Plan" [ref=e82] [cursor=pointer]:
+                    - /url: https://www.nbim.no/en/news-and-insights/the-press/press-releases/2025/new-climate-action-plan-for-2030/
+                  - text: ", integrating nature risk into the mandate of the world’s largest sovereign wealth fund. The plan opens with the statement that climate risk is financial risk. NBIM manages over $1.8 trillion for Norway’s Government Pension Fund Global. Chief executive Nicolai Tangen put it plainly: “The global economy cannot outrun climate change, so neither can our investments.” The fund has committed to zero net nature loss across its new renewable energy infrastructure investments, treating ecosystem regeneration as a financial precondition of return rather than as a reputational signal."
+                - paragraph [ref=e83]: Two governments, two announcements, ten days apart. The signal in both is the same. The operating assumption of the last forty years is being retired, and the capital that built itself on that assumption is moving first.
+                - text: Advertisement
+                - generic [ref=e84]: Advertisement
+                - paragraph [ref=e85]:
+                  - text: A month later, at COP30 in Belém, Brazil, governments agreed to
+                  - link "triple international adaptation finance to $120 billion" [ref=e86] [cursor=pointer]:
+                    - /url: https://www.wri.org/insights/tripling-adaptation-finance-goal
+                  - text: by 2035. Multilateral development banks, which already provide more than half of international adaptation finance, have committed to deliver 35 percent of their climate finance as adaptation rather than mitigation by 2025. The reallocation inverts the conventional priority order. Adaptation, long the secondary pillar of climate finance, is becoming the dominant operating logic of development capital.
+                - paragraph [ref=e87]:
+                  - text: The shift sits beneath the climate-risk category itself. It concerns which baseline the prior framework was designed to return to. The prior question was how to defend the existing model against shocks. The current question is what can be designed to operate under conditions that have replaced it. Wildfire ecology has been pricing this question for forty million years. In Mediterranean and boreal forest systems, fire does not destroy the forest. It removes the older canopy and triggers seed release from serotinous pines that have evolved to regenerate only after fire. What grows back is a different forest. The system is rebuilt. The error in modern forestry, documented by fire ecologists Juli Pausas and Jon Keeley
+                  - link "in their 2019 paper" [ref=e88] [cursor=pointer]:
+                    - /url: https://esajournals.onlinelibrary.wiley.com/doi/abs/10.1002/fee.2044
+                  - text: ", was to manage the forest as if recovery to the prior state were the goal."
+                - paragraph [ref=e89]: Regeneration, as distinct from resilience, treats the prior baseline as unavailable rather than recoverable. The reinsurance industry is now operating on that assumption. So is the largest sovereign wealth fund in the world. So is the development finance system that funds infrastructure for the next 40 years. NBIM’s reframe is financial. The fund treats nature integration as an investment discipline anchored to a changed operating assumption about the underlying economy.
+                - paragraph [ref=e90]:
+                  - text: The repricing is moving from physical risk into capital strategy. Carine Smith Ihenacho, NBIM’s governance and compliance officer, told the fund’s Climate Investment Summit in October 2025 that the global economy is currently undergoing one of the largest capital reallocations in history. The Yale Law Journal, in a December 2025 essay titled “The Uninsurable Future,”
+                  - link "framed the same shift in legal terms" [ref=e91] [cursor=pointer]:
+                    - /url: https://yalelawjournal.org/essay/the-uninsurable-future-the-climate-threat-to-property-insurance-and-how-to-stop-it
+                  - text: ": the property insurance system that anchors the American mortgage market is exiting climate-exposed assets faster than the regulatory architecture can replace it. Assets capitalized over service lives that exceed their insurer’s underwriting horizon, supply chains assuming physical infrastructure the reinsurance market is now excluding, growth strategies built on land-use models losing private-market insurability: these are the questions sovereign, multilateral and reinsurance capital is already pricing for, against a baseline they have concluded will not return."
+                - text: Advertisement
+                - generic [ref=e92]: Advertisement
+                - paragraph [ref=e93]: The market that wrote the prior baseline has stopped underwriting it. The capital that financed the prior baseline is reallocating against a different one. Boards governing balance sheets calibrated to the baseline of the last forty years are operating against an assumption that the institutions around them have already retired.
+                - paragraph
+            - generic [ref=e94]:
+              - text: "Filed Under:"
+              - link "Read articles filed under Business" [ref=e95] [cursor=pointer]:
+                - /url: https://observer.com/business/
+                - text: Business
+              - text: ","
+              - link "Read articles filed under Climate Change" [ref=e96] [cursor=pointer]:
+                - /url: https://observer.com/climate-change/
+                - text: Climate Change
+              - text: ","
+              - link "Read articles filed under Finance" [ref=e97] [cursor=pointer]:
+                - /url: https://observer.com/finance/
+                - text: Finance
+              - text: ","
+              - link "Read articles filed under Organizational Leadership Experts" [ref=e98] [cursor=pointer]:
+                - /url: https://observer.com/tag/organizational-leadership-experts/
+                - text: Organizational Leadership Experts
+              - text: ","
+              - link "Read articles filed under insurance" [ref=e99] [cursor=pointer]:
+                - /url: https://observer.com/tag/insurance/
+                - text: insurance
+              - text: ","
+              - link "Read articles filed under Business Experts" [ref=e100] [cursor=pointer]:
+                - /url: https://observer.com/tag/business-experts/
+                - text: Business Experts
+            - list [ref=e102]:
+              - listitem [ref=e103]:
+                - 'link "SEE ALSO: Why Cutting Humans Too Fast Could Backfire in the A.I. Era" [ref=e104] [cursor=pointer]':
+                  - /url: https://observer.com/2026/06/ai-efficiency-human-leadership/
+                  - strong [ref=e105]: SEE ALSO
+                  - text: ": Why Cutting Humans Too Fast Could Backfire in the A.I. Era"
+        - complementary [ref=e106]:
+          - complementary [ref=e107]:
+            - text: Advertisement
+            - generic [ref=e108]:
+              - text: Advertisement
+              - iframe [ref=e176]:
+                - generic [ref=f108e1]:
+                  - generic [ref=f108e2]:
+                    - iframe [ref=f108e5]:
+                      
+                    - generic [ref=f108e6]
+                  - text: "\""
+                  - insertion [ref=f108e20]:
+                    - iframe [ref=f108e23]:
+                      
+                  - text: "\""
+          - text: Advertisement Advertisement
+      - generic [ref=e110]: Advertisement
+    - contentinfo [ref=e111]:
+      - generic [ref=e112]:
+        - generic [ref=e113]:
+          - generic [ref=e114]:
+            - navigation [ref=e115]:
+              - list [ref=e116]:
+                - listitem [ref=e117]:
+                  - link "ART" [ref=e118] [cursor=pointer]:
+                    - /url: https://observer.com/arts/
+                - listitem [ref=e119]:
+                  - link "BUSINESS" [ref=e120] [cursor=pointer]:
+                    - /url: https://observer.com/business/
+                - listitem [ref=e121]:
+                  - link "LIFESTYLE" [ref=e122] [cursor=pointer]:
+                    - /url: https://observer.com/lifestyle/
+                - listitem [ref=e123]:
+                  - link "POWER LISTS" [ref=e124] [cursor=pointer]:
+                    - /url: https://observer.com/power-lists/
+                - listitem [ref=e125]:
+                  - link "INTERVIEWS" [ref=e126] [cursor=pointer]:
+                    - /url: https://observer.com/interviews/
+            - navigation [ref=e127]:
+              - list [ref=e128]:
+                - listitem [ref=e129]:
+                  - link "ABOUT" [ref=e130] [cursor=pointer]:
+                    - /url: https://observer.com/about-observer/
+                - listitem [ref=e131]:
+                  - link "ADVERTISE" [ref=e132] [cursor=pointer]:
+                    - /url: https://observer.com/advertise/
+                - listitem [ref=e133]:
+                  - link "CONTACT" [ref=e134] [cursor=pointer]:
+                    - /url: http://observermedia.com/contact/
+                - listitem [ref=e135]:
+                  - link "NEWSLETTERS" [ref=e136] [cursor=pointer]:
+                    - /url: http://observer.com/subscribe
+                - listitem [ref=e137]:
+                  - link "RSS FEEDS" [ref=e138] [cursor=pointer]:
+                    - /url: https://observer.com/rss-feeds/
+                - listitem [ref=e139]:
+                  - link "SITEMAP" [ref=e140] [cursor=pointer]:
+                    - /url: https://observer.com/sitemap/
+                - listitem [ref=e141]:
+                  - link "TERMS" [ref=e142] [cursor=pointer]:
+                    - /url: http://observermedia.com/terms
+                - listitem [ref=e143]:
+                  - link "PRIVACY" [ref=e144] [cursor=pointer]:
+                    - /url: http://observermedia.com/privacy-policy
+                - listitem [ref=e145]:
+                  - link "REPRINTS" [ref=e146] [cursor=pointer]:
+                    - /url: https://www.parsintl.com/publications/commercial-observer/
+          - list [ref=e148]:
+            - listitem [ref=e149]:
+              - link "Follow us on Facebook" [ref=e150] [cursor=pointer]:
+                - /url: https://www.facebook.com/observer
+                - img
+            - listitem [ref=e151]:
+              - link "Follow us on X" [ref=e152] [cursor=pointer]:
+                - /url: https://x.com/observer
+                - img
+            - listitem [ref=e153]:
+              - link "Follow us on Linkedin" [ref=e154] [cursor=pointer]:
+                - /url: https://www.linkedin.com/company/observer-media
+                - img
+            - listitem [ref=e155]:
+              - link "Follow us on Instagram" [ref=e156] [cursor=pointer]:
+                - /url: https://instagram.com/observer
+                - img
+            - listitem [ref=e157]:
+              - link "Drop us an email" [ref=e158] [cursor=pointer]:
+                - /url: mailto:editorial@observer.com?Subject=Feedback Meet the American Billionaires Reshaping Global Soccer
+                - img
+        - generic [ref=e159]:
+          - navigation [ref=e160]:
+            - list:
+              - listitem [ref=e161]:
+                - link "Privacy" [ref=e162] [cursor=pointer]:
+                  - /url: https://www.observermedia.com/privacy-policy
+              - listitem [ref=e163]:
+                - link "Terms" [ref=e164] [cursor=pointer]:
+                  - /url: https://observermedia.com/terms
+              - listitem [ref=e165]:
+                - link "Cookies Settings" [ref=e177] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=e167]:
+                - link "Do not sell my data" [ref=e168] [cursor=pointer]:
+                  - /url: https://privacyportal.onetrust.com/webform/8bf444f2-ddd6-41ff-8e24-b69ac0176e05/19c22396-023a-465c-a9c0-d9f831d1d9cd
+          - generic [ref=e170] [cursor=pointer]:
+            - text: Powered by
+            - link "WordPress VIP" [ref=e171]:
+              - /url: https://wpvip.com/?utm_source=vip_powered_wpcom&utm_medium=web&utm_campaign=VIP%20Footer%20Credit&utm_term=observer.com
+  - iframe [ref=e193]:
+    - generic [active]:
+      - iframe
+  - generic "Close" [ref=e180] [cursor=pointer]
+  - dialog [ref=e181]:
+    - generic [ref=e183]:
+      - paragraph [ref=e186]: By clicking “Accept All Cookies”, you agree to the storing of cookies on your device to enhance site navigation, analyze site usage, and assist in our marketing efforts.
+      - generic [ref=e188]:
+        - button "Cookies Settings" [active] [ref=e189] [cursor=pointer]
+        - button "Accept All Cookies" [ref=e190] [cursor=pointer]
+      - button "Close" [ref=e191] [cursor=pointer]

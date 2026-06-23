@@ -1,0 +1,39 @@
+C4Context
+  title Meridian Phase 1 — Headless Commerce Platform (Pilot Country)
+
+  Person(customer, "Customer", "Shops via meridian.com and Meridian mobile app. Checks store availability before pickup.", $tags="web+mobile")
+  Person(associate, "Store Associate", "Confirms click & collect pickups and checks shelf inventory via POS terminal.", $tags="pos")
+  Person(marketing, "Marketing Ops", "Creates promotional campaigns, manages loyalty offers, views performance analytics.", $tags="campaigns")
+
+  System(platform, "Meridian Headless Commerce Platform", "Modular monolith: cart, catalog, checkout, loyalty, availability freshness indicator. Deployed per-region behind API gateway.", $tags="Phase1")
+
+  System_Ext(stripe, "Stripe", "Payment processing — credit cards, local payment methods, PSD2 Strong Customer Authentication.")
+  System_Ext(sap, "SAP ECC", "Enterprise inventory master — batch-syncs store-level stock quantities every 15–30 minutes.")
+  System_Ext(crm, "Salesforce Marketing Cloud", "Regional CRM — customer segmentation, campaign orchestration, loyalty tier management.")
+  System_Ext(auth0, "Auth0", "Customer identity — SSO, social login, MFA, GDPR consent management, cross-country tenant federation.")
+  System_Ext(sendgrid, "SendGrid", "Transactional email — order confirmation, pickup ready, post-collection micro-survey.")
+
+  Rel(customer, platform, "Browses products, adds to cart, checks out, views store availability freshness", "HTTPS/REST, GraphQL")
+  Rel(customer, auth0, "Logs in, registers, resets password via hosted login page", "OAuth 2.0 / OIDC")
+  Rel(associate, platform, "Confirms click & collect pickups, checks on-shelf inventory", "HTTPS/REST")
+  Rel(marketing, platform, "Creates campaigns, views loyalty dashboards and sell-through analytics", "HTTPS/REST")
+
+  Rel(platform, stripe, "Authorises payments, captures funds, processes refunds", "Stripe API, HTTPS/REST")
+  Rel(stripe, platform, "Pushes payment confirmations, dispute notices, and refund events via webhooks", "Stripe Webhooks, HTTPS")
+  Rel(sap, platform, "Pushes inventory batch files (stock levels, sell-through velocity)", "SFTP/IDoc, batch 15-30 min")
+  Rel(platform, sap, "Pushes fulfilled order data and pickup confirmations", "SFTP/IDoc, batch")
+  Rel(platform, crm, "Syncs customer segments, campaign eligibility, loyalty tier changes", "Salesforce REST API, HTTPS")
+  Rel(crm, platform, "Pushes campaign performance data, segment membership updates, and journey analytics via webhooks", "Salesforce Webhooks, HTTPS")
+  Rel(platform, auth0, "Validates access tokens, resolves user profiles and consent records", "OAuth 2.0 / OIDC, HTTPS")
+  Rel(platform, sendgrid, "Dispatches order confirmation, pickup-ready notification, post-collection micro-survey", "SendGrid Web API v3, HTTPS")
+
+  UpdateRelStyle(customer, platform, $offsetY="-40", $offsetX="-20")
+  UpdateRelStyle(associate, platform, $offsetY="-30")
+  UpdateRelStyle(marketing, platform, $offsetY="-30", $offsetX="20")
+  UpdateRelStyle(platform, stripe, $offsetY="-30", $offsetX="-10")
+  UpdateRelStyle(sap, platform, $offsetY="-50", $offsetX="30")
+  UpdateRelStyle(platform, sap, $offsetY="20", $offsetX="-30")
+  UpdateRelStyle(platform, crm, $offsetY="-30")
+  UpdateRelStyle(crm, platform, $offsetY="20", $offsetX="-40")
+  UpdateRelStyle(platform, auth0, $offsetY="20")
+  UpdateRelStyle(platform, sendgrid, $offsetY="30", $offsetX="20")

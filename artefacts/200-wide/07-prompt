@@ -1,0 +1,8 @@
+From the PRD's stories and scope boundary, write the release-scope confirmation: what's in this release, what's deferred — tag each in-scope line with its story.
+Name two-to-three open risks that could block or delay release; give each an owner and a one-line mitigation.
+Draft a stakeholder notification for two audiences — delivery leads (scope + risks + timeline) and business/external stakeholders (value + timeline, plain language).
+Write the "What's New" / release note (3–5 bullets). Check each bullet against the traceability matrix; cut any that doesn't trace to a shipped story.
+Add one line naming which spec section needs updating to reflect what shipped. Save to 07-release-comms.md
+
+
+

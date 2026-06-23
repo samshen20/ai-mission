@@ -1,0 +1,12 @@
+1. Ask the AI: Implement src/logsum.py against spec.md.
+Python standard library only. Add __main__ so it runs as:
+python -m src.logsum data/sample_events.csv data/summary.csv
+Also create data/sample_events.csv with one duplicate group and
+one edge case. Show me the diff before applying files.
+
+
+
+2. Read the diff against spec.md. Look for missing-level handling, timestamp handling, and dependency additions.
+3. Approve only after the diff matches the spec.
+4. Run the sample command or ask the AI to run it and show output.
+5. Add ## Implementation notes to spec.md with one surprise or decision.

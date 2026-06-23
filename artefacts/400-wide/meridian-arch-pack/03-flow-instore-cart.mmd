@@ -1,0 +1,94 @@
+sequenceDiagram
+  title Store Associate Looks Up Customer Cart via Loyalty QR at POS
+  accTitle: POS cart lookup with per-item availability and cache-miss failure path
+  accDescr: Store associate scans loyalty QR code at POS. Apollo Gateway validates the associate session and resolves the customer identity via Identity Service, fetches the active cart from Cart Service, then enriches each line item with shelf availability from the Inventory Read Cache. One item (SKU TRL-X9-42) returns a cache miss — the Cart Service marks it unavailable and the POS renders a "not at this store" row with an alternative-store suggestion.
+
+  participant POS as POS Client
+  participant Gateway as Apollo Gateway
+  participant Identity as Identity Service
+  participant Cart as Cart Service
+  participant Inventory as Inventory Read Cache
+  participant SAP as SAP ECC
+
+  Note over POS,SAP: p95 latencies shown per step — measured within same AWS region (eu-west-1)
+
+  Store Associate->>POS: scans customer loyalty QR code
+  Note right of POS: QR payload: loyalty account ID + store ID
+
+  POS->>Gateway: lookupCustomerCart(qrCode, storeId)
+  Note right of POS: GraphQL mutation
+  Note left of Gateway: p95 ≤ 80ms (store WiFi + TLS)
+
+  critical Validate associate session
+    Gateway->>Identity: validateAssociateSession(associateToken)
+    Note right of Gateway: gRPC unary · p95 ≤ 15ms
+    Identity-->>Gateway: { valid: true, storeId: "high-st-01", permissions: ["pos:cart:read"] }
+    Note left of Identity: p95 ≤ 15ms
+  end
+
+  critical Resolve customer from QR
+    Gateway->>Identity: resolveLoyaltyQr(qrCode)
+    Note right of Gateway: gRPC unary · p95 ≤ 15ms
+    Identity-->>Gateway: { customerId: "cust-8421", loyaltyTier: "gold", givenName: "Alex" }
+    Note left of Identity: p95 ≤ 15ms
+    Note over Identity: tier lookup from local PostgreSQL · no external call
+  end
+
+  critical Fetch active cart
+    Gateway->>Cart: getActiveCart(customerId)
+    Note right of Gateway: gRPC unary · p95 ≤ 15ms
+    Cart-->>Gateway: { cartId: "cart-9f3a", items: [ ... ] }
+    Note left of Cart: p95 ≤ 15ms (cart held in session Redis)
+  end
+
+  Note over Gateway: cart contains 3 line items — enrich each with per-store availability
+
+  loop For each cart item (SKU, requestedQty)
+    Cart->>Inventory: getStock(storeId, sku)
+    Note right of Cart: RESP GET · p95 ≤ 3ms per lookup
+    alt Cache hit — shelf stock found (items 1 and 3)
+      Inventory-->>Cart: { sku: "LMP-100", qtyOnShelf: 4, sellThroughToday: 8, lastSync: "10:29 UTC" }
+      Note left of Inventory: p95 ≤ 3ms
+      Note over Cart: status ← "available" · no SAP call needed
+    else Cache miss — no batch data for this SKU at this store (item 2: TRL-X9-42)
+      Inventory-->>Cart: null
+      Note left of Inventory: p95 ≤ 3ms · key absent — falling back to SAP ECC inline
+      Cart->>SAP: checkStockRealtime(storeId, sku)
+      Note right of Cart: IDoc synchronous lookup · bypasses 15–30 min batch cycle
+      Note left of SAP: p95 ≤ 400ms · WAN + ERP query overhead
+      alt SAP confirms stock on hand
+        SAP-->>Cart: { sku: "TRL-X9-42", qtyOnHand: 2, warehouseBin: "B-12", lastPhysicalCount: "09:15 UTC" }
+        Note left of SAP: p95 ≤ 400ms
+        Note over Cart: status ← "available (SAP-confirmed)"<br/>+400ms penalty vs cache hit
+      else SAP cannot confirm — source-of-truth has no record
+        SAP-->>Cart: { sku: "TRL-X9-42", status: "not-found", reason: "no-stock-at-location" }
+        Note left of SAP: p95 ≤ 400ms
+        Note over Cart: status ← "unavailable"<br/>confirmed by SAP source-of-truth<br/>+400ms penalty vs cache hit
+      end
+    end
+  end
+
+  Note over Cart: enriched cart assembled — p95 total for this step:<br/>cache-hit items (LMP-100, LMP-200): +3ms each<br/>cache-miss item (TRL-X9-42): +3ms cache check + 400ms SAP fallback = +403ms
+
+  Cart-->>Gateway: enriched cart with per-item availability status
+  Note left of Cart: gRPC unary · p95 ≤ 15ms
+
+  Gateway-->>POS: { cart, customer: { name, loyaltyTier }, items: [{ sku, name, qty, availability: { status, qtyOnShelf, freshness, source } }] }
+  Note left of Gateway: JSON/HTTPS · p95 ≤ 80ms
+
+  Note over POS: POS renders cart view: "Alex (Gold)"<br/>✓ LMP-100 — 4 on shelf (checked 12 min ago) · cache<br/>⚠ TRL-X9-42 — 2 on hand (SAP-confirmed) · +400ms<br/>✓ LMP-200 — 2 on shelf (checked 8 min ago) · cache
+
+  Note over POS,SAP: ⏱ LATENCY TOTALS<br/>Happy path (all cache hits): 80+15+15+15+15+(3×3)+15+80 = <b>~250ms p95</b><br/>Failure path (1 cache miss → SAP fallback): 80+15+15+15+15+(2×3)+3+400+15+80 = <b>~650ms p95</b><br/>Worst case (3 cache misses → 3 SAP calls in sequence): 80+15+15+15+15+3×(3+400)+15+80 = <b>~1,450ms p95</b>
+
+  Store Associate->>POS: taps unavailable item for alternatives
+  POS->>Gateway: suggestAlternativeStores(sku: "TRL-X9-42", excludeStoreId)
+  Note right of POS: GraphQL query · p95 ≤ 80ms
+  Gateway->>Inventory: getStockForAllStores(sku)
+  Note right of Gateway: RESP MGET across store keys · p95 ≤ 10ms
+  Inventory-->>Gateway: [{ storeId: "riverside-01", qtyOnShelf: 3, distance: 2.4km }, { storeId: "oakfield-01", qtyOnShelf: null, lastSync: ">30min" }]
+  Gateway-->>POS: { alternatives: [{ storeName: "Riverside Mall", qtyOnShelf: 3, distance: "2.4 km" }] }
+  Note left of Gateway: JSON/HTTPS · p95 ≤ 80ms
+
+  Note over POS: Associate tells customer:<br/>"TRL-X9-42 isn't at this store, but Riverside Mall has 3 —<br/>want me to transfer your cart?"
+
+  Note over POS,SAP: LATENCY vs PSD2 SCA BUDGET (1500ms target)<br/>Happy path all cache hits: 250ms p95. 6x below budget.<br/>1 cache miss SAP fallback: 650ms p95. 2.3x below budget.<br/>3 cache misses 3x SAP: 1450ms p95. At budget ceiling.<br/>Worst stage: SAP inline IDoc at 400ms p95 per call.<br/>Bottleneck: SAP ECC inline lookup dominates when cache misses. Mitigation 1: cache warm-up on Kafka stock events. Mitigation 2: degrade to stock unknown on cache miss.

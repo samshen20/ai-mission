@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POS Cart Lookup — Dependency Graph</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f5f7; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+  .container { background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); padding: 32px; max-width: 1400px; width: 100%; }
+  h1 { font-size: 18px; font-weight: 700; color: #1a1a1a; margin: 0 0 4px; }
+  .subtitle { font-size: 13px; color: #6e6e73; margin-bottom: 24px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>POS Cart Lookup — Transitive Dependency Graph</h1>
+  <p class="subtitle">Solid = synchronous call path · Dashed = async event / batch data flow · Color by C4 type</p>
+  <pre class="mermaid">
+graph TD
+  POS["<b>POS Client</b><br/>store terminal browser"]
+
+  Gateway["<b>Apollo GraphQL Gateway</b><br/>Node.js / Apollo Server"]
+
+  Identity["<b>Identity Service</b><br/>Node.js / Express + PostgreSQL"]
+  Cart["<b>Cart Service</b><br/>Node.js / Express + Redis"]
+  Checkout["<b>Checkout Service</b><br/>Node.js / Express"]
+  Inventory["<b>Inventory Read Cache</b><br/>Redis<br/><i>ContainerDb</i>"]
+  EventBus["<b>Order Event Bus</b><br/>Apache Kafka<br/><i>ContainerQueue</i>"]
+  OrderDb["<b>Order Database</b><br/>PostgreSQL<br/><i>ContainerDb</i>"]
+
+  Stripe["<b>Stripe</b><br/>System_Ext"]
+  SAP["<b>SAP ECC</b><br/>System_Ext"]
+  Auth0["<b>Auth0</b><br/>System_Ext"]
+  CRM["<b>Salesforce Marketing Cloud</b><br/>System_Ext"]
+  SendGrid["<b>SendGrid</b><br/>System_Ext"]
+
+  POS -->|"JSON/HTTPS<br/>lookupCustomerCart(qrCode, storeId)<br/>p95 ≤ 80ms"| Gateway
+  Gateway -->|"gRPC<br/>validateAssociateSession<br/>p95 ≤ 15ms"| Identity
+  Gateway -->|"gRPC<br/>resolveLoyaltyQr<br/>p95 ≤ 15ms"| Identity
+  Gateway -->|"gRPC<br/>getActiveCart<br/>p95 ≤ 15ms"| Cart
+  Cart -->|"RESP/TCP<br/>getStock(storeId, sku) per line item<br/>p95 ≤ 3ms each"| Inventory
+  Cart -->|"IDoc sync<br/>checkStockRealtime — cache-miss fallback<br/>p95 ≤ 400ms"| SAP
+  SAP -.->|"SFTP/IDoc batch 15-30 min<br/>async cache hydration<br/>stock levels + sell-through velocity"| Inventory
+
+  Cart -.->|"Kafka/TCP<br/>publishes CartItemAdded, CartItemRemoved,<br/>CartAbandoned"| EventBus
+  Identity -.->|"Kafka/TCP<br/>publishes CustomerRegistered,<br/>LoyaltyTierChanged, ConsentUpdated"| EventBus
+  Checkout -.->|"Kafka/TCP<br/>publishes OrderPlaced, PaymentAuthorised,<br/>PaymentCaptured, OrderFulfilled"| EventBus
+
+  Identity -->|"OAuth 2.0 / OIDC<br/>resolveUserProfile"| Auth0
+  Identity -->|"JSON/HTTPS<br/>syncCustomerSegments"| CRM
+  Checkout -->|"JSON/HTTPS<br/>authorise + capture"| Stripe
+  Checkout -->|"JSON/HTTPS<br/>dispatchOrderEmail"| SendGrid
+  Checkout -->|"SQL/TCP<br/>insert + update orders"| OrderDb
+
+  Gateway -->|"gRPC<br/>suggestAlternativeStores<br/>p95 ≤ 15ms + RESP MGET ≤ 10ms"| Inventory
+
+  subgraph Legend
+    direction LR
+    L1["sync call (solid)"] ~~~ L2["async event / batch (dashed)"]
+  end
+
+  style POS fill:#1a1a1a,color:#fff,stroke:#1a1a1a
+  style Gateway fill:#e8f5e9,stroke:#2e7d32,color:#1a1a1a
+  style Identity fill:#e3f2fd,stroke:#1565c0,color:#1a1a1a
+  style Cart fill:#e3f2fd,stroke:#1565c0,color:#1a1a1a
+  style Checkout fill:#e3f2fd,stroke:#1565c0,color:#1a1a1a
+  style Inventory fill:#fff3e0,stroke:#e65100,color:#1a1a1a
+  style EventBus fill:#f3e5f5,stroke:#7b1fa2,color:#1a1a1a
+  style OrderDb fill:#fff3e0,stroke:#e65100,color:#1a1a1a
+  style SAP fill:#fce4ec,stroke:#c62828,color:#1a1a1a
+  style Stripe fill:#fce4ec,stroke:#c62828,color:#1a1a1a
+  style Auth0 fill:#fce4ec,stroke:#c62828,color:#1a1a1a
+  style CRM fill:#fce4ec,stroke:#c62828,color:#1a1a1a
+  style SendGrid fill:#fce4ec,stroke:#c62828,color:#1a1a1a
+  </pre>
+</div>
+<script>
+  mermaid.initialize({ startOnLoad: true, theme: 'default', securityLevel: 'loose', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+</script>
+</body>
+</html>

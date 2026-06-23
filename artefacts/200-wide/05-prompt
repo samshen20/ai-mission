@@ -1,0 +1,4 @@
+Put each story in a row. Add columns: Reach, Impact, Confidence, Effort, RICE score, Rationale.
+Score each. Constrain Confidence to {10%, 50%, 80%, 100%} — no other values.
+Ask the AI to critique your lowest-confidence row and your highest-score row.
+Sort by RICE score; write a one-sentence rationale for each of the top five. Save.

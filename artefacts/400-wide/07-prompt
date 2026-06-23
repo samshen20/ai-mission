@@ -1,0 +1,4 @@
+Open a fresh AI session. Paste the arch pack artefacts. Add one line: "You did not design this. Your job is to break it."
+Prompt: "Where does this Meridian Phase 1 architecture break first under each of these, top 3 each, most-likely-first: (a) 10× the Black Friday peak load; (b) hostile inputs at the EU checkout — malformed PSD2 SCA callbacks, replayed payment webhooks, injection at the loyalty-QR lookup; (c) a partner outage — SAP ECC down for 2 hours, or Stripe degraded. For each break, name the specific container or relationship and the first symptom a user would see."
+Triage the nine findings. For each, decide: patch now (name the diagram, ADR, or NFR it changes) or accept the risk (name the owner — Tomás for architecture risk, David Park for store-ops impact, Asha Sundaram for compliance).
+Apply the patches you chose. Re-render any diagram you changed; add an ADR if a finding forces a new decision. Record the accepted risks with their owners.

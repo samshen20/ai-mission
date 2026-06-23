@@ -1,0 +1,13 @@
+1. Paste your L2 diagram + the Meridian constraints + your three ADRs into AI. Prompt: "For each of these patterns, decide whether it applies to Meridian Phase 1 and, if yes, name the specific containers or relationships where it applies and the Meridian constraint it addresses: Strangler Fig, Outbox, Saga, Bulkhead, Circuit Breaker, BFF (Backend for Frontend), Pipe & Filter, Event Sourcing, CQRS. For patterns that do NOT apply, say so and why."
+2. Read the AI output critically. Three patterns must be there (and the AI almost always gets them): Strangler Fig (the cutover itself — name which legacy regional stack is being strangled first), Outbox (transactional event publishing from Cart/Order services to Kafka — ADR-002 from your set), Bulkhead (isolation per region or per checkout payment-method so a PayPay outage in Japan does not break Postepay in Italy).
+3. Push back on AI's weakest recommendation. If the AI proposes Event Sourcing across the board, ask: "Where specifically would Event Sourcing be worth its operational cost in Phase 1, given the junior internal MRG product team and the 18-month timeline? Be specific or recommend against." Force a reject if appropriate.
+4. For each kept pattern, write the row in 05-patterns.md:
+5. If the AI recommended any pattern you don't see on your L2 today, flag it: "Pattern recommended but not yet placed — open question for review."
+
+| Pattern | Where on L2 | Meridian constraint it addresses | Trade-off |
+|---|---|---|---|
+| Strangler Fig | Apollo Gateway routes /v1/* to legacy regional stack, /v2/* to commercetools | CTO mandate: no Big Bang; 22 stacks must coexist | Routing layer becomes a deployment dependency; cannot delete it until last region migrates |
+| Outbox | Cart Service + Order Service → outbox table → CDC → Kafka | Cross-service consistency without distributed transactions (ADR-002) | Adds CDC/Debezium operational burden |
+| Bulkhead | Per-payment-method gateway pods, separate connection pools | Local payment methods (Postepay, PayPay, Klarna) must not share fate | More pods to run, less efficient resource use |
+| Circuit Breaker | Apollo Gateway → SAP ECC inventory calls; checkout → Stripe | SAP ECC and Stripe outages must not cascade | Need configured timeouts that survive the slowest expected response |
+| BFF | Web BFF + Mobile BFF + POS BFF, fronting Apollo Gateway | Three surfaces (web, mobile, POS) with diverging shapes (POS needs cart-merge) | Three codebases to keep aligned |

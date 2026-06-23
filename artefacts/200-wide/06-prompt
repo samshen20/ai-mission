@@ -1,0 +1,4 @@
+Compress vision + top stories/ACs + scope boundary + success metric into a one-page PRD (use the PRD template referenced in §2 Materials). Close it with a one-paragraph Decision Memory entry (template): the biggest scope call you made across the series, the reason, and the alternative you rejected. If the AI drafts it, make it write the reasoning, not only the decision. save to 06-prd.md.
+Build the traceability matrix: rows = stories (top 5–8), columns = the outcome metric(s) from K 2.W.2; mark which story moves which metric.
+Flag any story linked to no metric (unjustified) and any metric with no linked story (dead — drop it).
+Save to 06-traceability.md

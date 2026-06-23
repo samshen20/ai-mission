@@ -1,0 +1,6 @@
+
+## Output
+- Run a Deep Research query: "For Insurance, synthesise (a) the top 3 market trends, (b) competitive moves by named players, (c) regulatory shifts in the past 18 months. Include source citations with dates." 
+- Cluster the output into 3 strategic pain points the segment is feeling now.
+- For each pain point, name the source-of-evidence. If a claim has no source, downgrade it to a hypothesis or drop it.
+- Trim to one page and write to 01-context-brief.md file
