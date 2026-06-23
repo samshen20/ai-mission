@@ -35,7 +35,8 @@ def normalise_service(raw):
     return raw.strip().lower() if raw else ""
 
 
-def main():
+def _build_parser():
+    """Return an ArgumentParser for the logsum CLI."""
     parser = argparse.ArgumentParser(
         description="Summarise events.csv into summary.csv grouped by (level, service)."
     )
@@ -54,24 +55,21 @@ def main():
     parser.add_argument(
         "--version", action="version", version="logsum 0.1.0"
     )
+    return parser
 
-    args = parser.parse_args()
 
-    input_path = Path(args.input)
-    if not input_path.exists():
-        print(f"Error: input file not found: {args.input}", file=sys.stderr)
-        sys.exit(1)
+def _read_and_aggregate(input_path):
+    """Read events.csv, normalise fields, and aggregate into (level, service) groups.
 
+    Returns (groups: dict, skipped: int).  Fatal errors call sys.exit(1).
+    """
     groups = defaultdict(lambda: {"count": 0, "first_seen": None, "last_seen": None})
     skipped = 0
 
     try:
         with input_path.open("r", encoding="utf-8", newline="") as f:
             reader = csv.reader(f)
-            try:
-                header = next(reader)
-            except StopIteration:
-                header = []
+            header = next(reader, [])
 
             if len(header) < 4:
                 print(
@@ -103,8 +101,7 @@ def main():
                 level = normalise_level(raw_level)
                 service = normalise_service(raw_service)
 
-                key = (level, service)
-                g = groups[key]
+                g = groups[(level, service)]
                 g["count"] += 1
                 if g["first_seen"] is None or ts < g["first_seen"]:
                     g["first_seen"] = ts
@@ -114,7 +111,14 @@ def main():
         print(f"Error reading input: {e}", file=sys.stderr)
         sys.exit(1)
 
-    output_path = Path(args.output)
+    return groups, skipped
+
+
+def _write_summary(output_path, groups):
+    """Write the aggregated groups to a CSV file.
+
+    Fatal errors call sys.exit(1).
+    """
     try:
         output_path.parent.mkdir(parents=True, exist_ok=True)
         with output_path.open("w", encoding="utf-8", newline="") as f:
@@ -128,11 +132,23 @@ def main():
         print(f"Error writing output: {e}", file=sys.stderr)
         sys.exit(1)
 
+
+def main():
+    parser = _build_parser()
+    args = parser.parse_args()
+
+    input_path = Path(args.input)
+    if not input_path.exists():
+        print(f"Error: input file not found: {args.input}", file=sys.stderr)
+        sys.exit(1)
+
+    groups, skipped = _read_and_aggregate(input_path)
+    _write_summary(Path(args.output), groups)
+
     if skipped > 0:
         print(f"Skipped {skipped} row(s) due to malformed data.", file=sys.stderr)
         sys.exit(2)
-    else:
-        sys.exit(0)
+    sys.exit(0)
 
 
 if __name__ == "__main__":
