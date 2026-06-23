@@ -3,8 +3,6 @@
 import csv
 import subprocess
 import sys
-from pathlib import Path
-
 
 # ---------------------------------------------------------------------------
 # helpers
@@ -492,10 +490,7 @@ class TestCLIInterface:
         _write_csv(default_in, ["timestamp", "level", "service", "message"], [
             ["2026-06-23T10:00:00Z", "ERROR", "svc", "msg"],
         ])
-        default_out = data_dir / "summary.csv"
-
         # Run from a directory where data/ exists; need to set cwd
-        import os
         result = subprocess.run(
             [sys.executable, "-m", "src.logsum"],
             capture_output=True,
