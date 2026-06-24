@@ -1,3 +1,5 @@
+"""Summarise events.csv into summary.csv grouped by (level, service)."""
+
 import argparse
 import csv
 import sys
@@ -6,32 +8,33 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 CANONICAL_LEVELS = frozenset({"DEBUG", "INFO", "WARN", "ERROR"})
+OUTPUT_HEADER = ["level", "service", "count", "first_seen", "last_seen"]
 
 
 def normalise_timestamp(raw):
-    """Parse ISO 8601, return UTC-normalised string or None on failure."""
+    """Parse ISO 8601, normalise to UTC, return 'YYYY-MM-DDTHH:MM:SSZ' or None."""
     raw = raw.strip()
     if not raw:
         return None
     try:
         dt = datetime.fromisoformat(raw)
-        if dt.tzinfo is None:
-            dt = dt.replace(tzinfo=timezone.utc)
-        else:
-            dt = dt.astimezone(timezone.utc)
-        return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
     except (ValueError, TypeError):
         return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    else:
+        dt = dt.astimezone(timezone.utc)
+    return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def normalise_level(raw):
-    """Uppercase, strip, map to canonical set; non-canonical → OTHER."""
+    """Strip, uppercase; map non-canonical values to OTHER."""
     level = raw.strip().upper() if raw else ""
     return level if level in CANONICAL_LEVELS else "OTHER"
 
 
 def normalise_service(raw):
-    """Lowercase, strip."""
+    """Strip, lowercase."""
     return raw.strip().lower() if raw else ""
 
 
@@ -130,7 +133,7 @@ def _write_summary(output_path, groups):
         output_path.parent.mkdir(parents=True, exist_ok=True)
         with output_path.open("w", encoding="utf-8", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(["level", "service", "count", "first_seen", "last_seen"])
+            writer.writerow(OUTPUT_HEADER)
             for (level, service), g in groups.items():
                 writer.writerow(
                     [level, service, g["count"], g["first_seen"], g["last_seen"]]
