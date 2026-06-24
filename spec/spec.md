@@ -79,7 +79,7 @@ If the input file exists but contains only the header row (no data rows):
 ## 9. CLI interface
 
 ```
-usage: cli.py [-h] [--version] [--input PATH] [--output PATH]
+usage: cli.py [-h] [--version] [--input PATH] [--output PATH] [--min-count N]
 
 Summarise events.csv into summary.csv grouped by (level, service).
 
@@ -88,6 +88,7 @@ options:
   --version       show program's version number and exit
   --input PATH    input CSV file (default: data/events.csv)
   --output PATH   output CSV file (default: data/summary.csv)
+  --min-count N   only output groups with count >= N (default: 0, no filtering)
 ```
 
 **Exit codes:**
@@ -98,7 +99,20 @@ options:
 | 1    | Usage error: bad flag, input file not found, output directory not writable. |
 | 2    | Data errors: one or more rows skipped due to malformed data, but output still produced. |
 
-## 10. Out of scope
+## 10. Min-count filtering
+
+The `--min-count N` flag filters the output to include only groups whose `count`
+is greater-than-or-equal-to `N`.
+
+- **Default (`--min-count 0` or flag omitted):** all groups are output.
+- **`--min-count 1`:** no change — every group has count >= 1 by definition.
+- **`--min-count` value larger than all group counts:** output contains only the
+  header row. Exit code 0 (normal operation, analogous to empty input in §8).
+- **Combined with malformed rows:** exit code 2 takes precedence when any input
+  row is malformed (§7); the min-count filter is applied to the valid groups
+  that survived malformed-row skipping.
+
+## 11. Out of scope
 - Streaming or real-time input (static file only).
 - Multi-file merge or directory scan.
 - JSON, Parquet, or any non-CSV output format.
@@ -110,9 +124,9 @@ options:
 - Message deduplication or pattern-matching (e.g. collapsing UUIDs, stack
   traces, or parameterised values).
 
-## 11. Examples
+## 12. Examples
 
-### 11.1 Basic run
+### 12.1 Basic run
 
 **Input (`data/events.csv`):**
 ```csv
@@ -131,7 +145,7 @@ INFO,payment-svc,1,2026-06-23T14:31:00Z,2026-06-23T14:31:00Z
 WARN,auth-svc,1,2026-06-23T15:00:00Z,2026-06-23T15:00:00Z
 ```
 
-### 11.2 Normalisation edge cases
+### 12.2 Normalisation edge cases
 
 **Input:**
 ```csv
@@ -155,7 +169,7 @@ OTHER,payment-svc,2,2026-06-23T12:02:00Z,2026-06-23T12:03:00Z
 - Row 3: `critical` is not in the canonical set → `OTHER`.
 - Row 4: empty level → `OTHER`.
 
-### 11.3 Malformed rows
+### 12.3 Malformed rows
 
 **Input:**
 ```csv
