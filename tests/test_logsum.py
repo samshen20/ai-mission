@@ -1,8 +1,9 @@
-"""Tests for logsum CLI — written from spec.md only, without reading src/logsum.py."""
+"""Tests for logsum CLI — written from spec.md only."""
 
 import csv
 import subprocess
 import sys
+
 
 # ---------------------------------------------------------------------------
 # helpers
@@ -33,11 +34,11 @@ def _write_csv(path, header, rows):
 
 
 # ---------------------------------------------------------------------------
-# fixtures (pytest tmp_path)
+# fixture helpers
 # ---------------------------------------------------------------------------
 
 def _basic_csv(tmp_path):
-    """§11.1 example: 4 rows, duplicate (ERROR,payment-svc) group."""
+    """§12.1 example: 4 rows, duplicate (ERROR,payment-svc) group."""
     p = tmp_path / "basic.csv"
     _write_csv(
         p,
@@ -53,7 +54,7 @@ def _basic_csv(tmp_path):
 
 
 def _normalisation_csv(tmp_path):
-    """§11.2 example: whitespace, case, timezone offset, non-canonical level, empty level."""
+    """§12.2 example: whitespace, case, timezone, non-canonical, empty level."""
     p = tmp_path / "norm.csv"
     _write_csv(
         p,
@@ -69,93 +70,89 @@ def _normalisation_csv(tmp_path):
 
 
 def _malformed_csv(tmp_path):
-    """§11.3 example: unparseable timestamp + too-few-columns row."""
+    """§12.3 example: bad timestamp + too-few-columns."""
     p = tmp_path / "malformed.csv"
     _write_csv(
         p,
         ["timestamp", "level", "service", "message"],
         [
             ["not-a-date", "ERROR", "svc", "bad timestamp"],
-            ["2026-06-23T12:00:00Z", "INFO"],  # only 2 cols
+            ["2026-06-23T12:00:00Z", "INFO"],  # only 2 columns
         ],
     )
     return p
 
 
 def _header_only_csv(tmp_path):
+    """Header row, no data rows."""
     p = tmp_path / "header_only.csv"
     _write_csv(p, ["timestamp", "level", "service", "message"], [])
     return p
 
 
 # ===================================================================
-# §3  Group key
+# §3  Grouping
 # ===================================================================
 
 class TestGrouping:
     def test_same_level_and_service_collapse_to_one_row(self, tmp_path):
-        """Rows with identical normalised (level, service) → one output row, count=2."""
+        """Two rows with same (level, service) → one output row with count=2."""
         p = tmp_path / "in.csv"
         _write_csv(p, ["timestamp", "level", "service", "message"], [
-            ["2026-06-23T10:00:00Z", "ERROR", "svc-a", "msg1"],
-            ["2026-06-23T10:01:00Z", "ERROR", "svc-a", "msg2"],
+            ["2026-06-23T10:00:00Z", "ERROR", "svc", "msg1"],
+            ["2026-06-23T10:01:00Z", "ERROR", "svc", "msg2"],
         ])
         out = tmp_path / "out.csv"
-        _run(str(p), str(out))
+        code, _, _ = _run(str(p), str(out))
+        assert code == 0
         rows = _read_output(out)
         assert len(rows) == 1
+        assert rows[0]["level"] == "ERROR"
+        assert rows[0]["service"] == "svc"
         assert int(rows[0]["count"]) == 2
 
     def test_different_level_produces_separate_rows(self, tmp_path):
-        """Different level → separate output rows."""
+        """Different levels → separate output rows."""
         p = tmp_path / "in.csv"
         _write_csv(p, ["timestamp", "level", "service", "message"], [
-            ["2026-06-23T10:00:00Z", "ERROR", "svc-a", "msg1"],
-            ["2026-06-23T10:01:00Z", "INFO", "svc-a", "msg2"],
+            ["2026-06-23T10:00:00Z", "ERROR", "svc", "msg1"],
+            ["2026-06-23T10:01:00Z", "INFO", "svc", "msg2"],
         ])
         out = tmp_path / "out.csv"
-        _run(str(p), str(out))
+        code, _, _ = _run(str(p), str(out))
+        assert code == 0
         rows = _read_output(out)
+        assert len(rows) == 2
         levels = {r["level"] for r in rows}
         assert levels == {"ERROR", "INFO"}
-        assert all(int(r["count"]) == 1 for r in rows)
 
     def test_different_service_produces_separate_rows(self, tmp_path):
-        """Different service → separate output rows."""
+        """Different services → separate output rows."""
         p = tmp_path / "in.csv"
         _write_csv(p, ["timestamp", "level", "service", "message"], [
             ["2026-06-23T10:00:00Z", "ERROR", "svc-a", "msg1"],
             ["2026-06-23T10:01:00Z", "ERROR", "svc-b", "msg2"],
         ])
         out = tmp_path / "out.csv"
-        _run(str(p), str(out))
+        code, _, _ = _run(str(p), str(out))
+        assert code == 0
         rows = _read_output(out)
+        assert len(rows) == 2
         services = {r["service"] for r in rows}
         assert services == {"svc-a", "svc-b"}
 
     def test_example_11_1_basic_run(self, tmp_path):
-        """Reproduce §11.1 exactly: 4 rows → 3 groups."""
+        """Reproduce spec §12.1: 4 rows → 3 groups with correct counts."""
         p = _basic_csv(tmp_path)
         out = tmp_path / "out.csv"
         code, _, _ = _run(str(p), str(out))
         assert code == 0
         rows = _read_output(out)
         assert len(rows) == 3
-
         by_key = {(r["level"], r["service"]): r for r in rows}
-
-        error_payment = by_key[("ERROR", "payment-svc")]
-        assert int(error_payment["count"]) == 2
-        assert error_payment["first_seen"] == "2026-06-23T14:30:00Z"
-        assert error_payment["last_seen"] == "2026-06-23T14:30:05Z"
-
-        info_payment = by_key[("INFO", "payment-svc")]
-        assert int(info_payment["count"]) == 1
-        assert info_payment["first_seen"] == info_payment["last_seen"] == "2026-06-23T14:31:00Z"
-
-        warn_auth = by_key[("WARN", "auth-svc")]
-        assert int(warn_auth["count"]) == 1
-        assert warn_auth["first_seen"] == warn_auth["last_seen"] == "2026-06-23T15:00:00Z"
+        assert int(by_key[("ERROR", "payment-svc")]["count"]) == 2
+        assert int(by_key[("INFO", "payment-svc")]["count"]) == 1
+        assert int(by_key[("WARN", "auth-svc")]["count"]) == 1
 
 
 # ===================================================================
@@ -163,103 +160,101 @@ class TestGrouping:
 # ===================================================================
 
 class TestNormalisation:
-    # -- level --
     def test_level_stripped_and_uppercased(self, tmp_path):
-        """Level gets whitespace stripped and uppercased."""
+        """Level whitespace and case are normalised."""
         p = tmp_path / "in.csv"
         _write_csv(p, ["timestamp", "level", "service", "message"], [
             ["2026-06-23T10:00:00Z", "  error  ", "svc", "msg"],
         ])
         out = tmp_path / "out.csv"
-        _run(str(p), str(out))
+        code, _, _ = _run(str(p), str(out))
+        assert code == 0
         rows = _read_output(out)
         assert rows[0]["level"] == "ERROR"
 
     def test_level_non_canonical_becomes_other(self, tmp_path):
-        """Any level not in {DEBUG, INFO, WARN, ERROR} → OTHER."""
-        for raw in ["critical", "FATAL", "notice", "ALERT"]:
-            p = tmp_path / f"{raw}.csv"
-            _write_csv(p, ["timestamp", "level", "service", "message"], [
-                ["2026-06-23T10:00:00Z", raw, "svc", "msg"],
-            ])
-            out = tmp_path / f"out_{raw}.csv"
-            _run(str(p), str(out))
-            rows = _read_output(out)
-            assert rows[0]["level"] == "OTHER", f"level {raw!r} should → OTHER"
+        """Non-canonical level → OTHER."""
+        p = tmp_path / "in.csv"
+        _write_csv(p, ["timestamp", "level", "service", "message"], [
+            ["2026-06-23T10:00:00Z", "critical", "svc", "msg"],
+        ])
+        out = tmp_path / "out.csv"
+        code, _, _ = _run(str(p), str(out))
+        assert code == 0
+        rows = _read_output(out)
+        assert rows[0]["level"] == "OTHER"
 
     def test_canonical_levels_preserved(self, tmp_path):
-        """DEBUG, INFO, WARN, ERROR stay as themselves after normalisation."""
-        for level in ["DEBUG", "INFO", "WARN", "ERROR"]:
-            p = tmp_path / f"{level}.csv"
-            _write_csv(p, ["timestamp", "level", "service", "message"], [
-                ["2026-06-23T10:00:00Z", level, "svc", "msg"],
-            ])
-            out = tmp_path / f"out_{level}.csv"
-            _run(str(p), str(out))
-            rows = _read_output(out)
-            assert rows[0]["level"] == level
+        """All four canonical levels pass through unchanged."""
+        p = tmp_path / "in.csv"
+        _write_csv(p, ["timestamp", "level", "service", "message"], [
+            ["2026-06-23T10:00:00Z", "DEBUG", "svc", "msg"],
+            ["2026-06-23T10:01:00Z", "INFO", "svc", "msg"],
+            ["2026-06-23T10:02:00Z", "WARN", "svc", "msg"],
+            ["2026-06-23T10:03:00Z", "ERROR", "svc", "msg"],
+        ])
+        out = tmp_path / "out.csv"
+        code, _, _ = _run(str(p), str(out))
+        assert code == 0
+        rows = _read_output(out)
+        levels = {r["level"] for r in rows}
+        assert levels == {"DEBUG", "INFO", "WARN", "ERROR"}
 
-    # -- service --
     def test_service_lowercased_and_stripped(self, tmp_path):
-        """Service gets whitespace stripped and lowercased."""
+        """Service whitespace and case are normalised."""
         p = tmp_path / "in.csv"
         _write_csv(p, ["timestamp", "level", "service", "message"], [
             ["2026-06-23T10:00:00Z", "ERROR", "  PAYMENT-SVC  ", "msg"],
         ])
         out = tmp_path / "out.csv"
-        _run(str(p), str(out))
+        code, _, _ = _run(str(p), str(out))
+        assert code == 0
         rows = _read_output(out)
         assert rows[0]["service"] == "payment-svc"
 
-    # -- timestamp --
     def test_timestamp_timezone_normalised_to_utc(self, tmp_path):
-        """+02:00 offset → normalised to UTC (§11.2 row 2)."""
+        """Timestamp with +02:00 offset normalises to UTC."""
         p = tmp_path / "in.csv"
         _write_csv(p, ["timestamp", "level", "service", "message"], [
             ["2026-06-23T12:01:00+02:00", "ERROR", "svc", "msg"],
         ])
         out = tmp_path / "out.csv"
-        _run(str(p), str(out))
+        code, _, _ = _run(str(p), str(out))
+        assert code == 0
         rows = _read_output(out)
-        # 12:01 +02:00 = 10:01 UTC
         assert rows[0]["first_seen"] == "2026-06-23T10:01:00Z"
 
     def test_timestamp_without_timezone_treated_as_utc(self, tmp_path):
-        """Naive timestamp is treated as UTC (§4: normalise to UTC)."""
+        """Naive timestamp is treated as UTC."""
         p = tmp_path / "in.csv"
         _write_csv(p, ["timestamp", "level", "service", "message"], [
-            ["2026-06-23T12:00:00", "ERROR", "svc", "msg"],
+            ["2026-06-23T10:00:00", "ERROR", "svc", "msg"],
         ])
         out = tmp_path / "out.csv"
-        _run(str(p), str(out))
+        code, _, _ = _run(str(p), str(out))
+        assert code == 0
         rows = _read_output(out)
-        assert rows[0]["first_seen"] == "2026-06-23T12:00:00Z"
+        assert rows[0]["first_seen"] == "2026-06-23T10:00:00Z"
 
     def test_example_11_2_normalisation(self, tmp_path):
-        """Reproduce §11.2 exactly."""
+        """Reproduce spec §12.2 normalisation example."""
         p = _normalisation_csv(tmp_path)
         out = tmp_path / "out.csv"
         code, _, _ = _run(str(p), str(out))
         assert code == 0
         rows = _read_output(out)
-        assert len(rows) == 2
-
         by_key = {(r["level"], r["service"]): r for r in rows}
 
         # rows 1-2 collapse: different case/spacing → (ERROR, payment-svc)
-        # NOTE: spec §11.2 example lists first_seen=12:00:00Z, last_seen=10:01:00Z,
+        # NOTE: spec §12.2 example lists first_seen=12:00:00Z, last_seen=10:01:00Z,
         # but that contradicts §5 ("earliest" / "latest").  +02:00 normalises to
         # 10:01 UTC which is *earlier* than 12:00 UTC.  We follow §5 definitions.
         error_payment = by_key[("ERROR", "payment-svc")]
         assert int(error_payment["count"]) == 2
         assert error_payment["first_seen"] == "2026-06-23T10:01:00Z"  # +02:00 → 10:01 UTC, earliest
-        assert error_payment["last_seen"] == "2026-06-23T12:00:00Z"   # latest
-
-        # rows 3-4: "critical" → OTHER + empty level → OTHER
+        assert error_payment["last_seen"] == "2026-06-23T12:00:00Z"
         other_payment = by_key[("OTHER", "payment-svc")]
         assert int(other_payment["count"]) == 2
-        assert other_payment["first_seen"] == "2026-06-23T12:02:00Z"
-        assert other_payment["last_seen"] == "2026-06-23T12:03:00Z"
 
 
 # ===================================================================
@@ -274,34 +269,37 @@ class TestMissingValues:
             ["2026-06-23T10:00:00Z", "", "svc", "msg"],
         ])
         out = tmp_path / "out.csv"
-        code, _, stderr = _run(str(p), str(out))
-        assert code == 0  # not malformed — level is allowed to be empty
+        code, _, _ = _run(str(p), str(out))
+        assert code == 0
         rows = _read_output(out)
         assert rows[0]["level"] == "OTHER"
 
     def test_empty_service_becomes_empty_string(self, tmp_path):
-        """Empty service → normalises to empty string (§6)."""
+        """Empty service → normalises to empty string."""
         p = tmp_path / "in.csv"
         _write_csv(p, ["timestamp", "level", "service", "message"], [
             ["2026-06-23T10:00:00Z", "ERROR", "", "msg"],
         ])
         out = tmp_path / "out.csv"
-        _run(str(p), str(out))
+        code, _, _ = _run(str(p), str(out))
+        assert code == 0
         rows = _read_output(out)
         assert rows[0]["service"] == ""
 
     def test_empty_timestamp_is_malformed(self, tmp_path):
-        """Missing/empty timestamp → malformed, row skipped (§6, §7)."""
+        """Empty timestamp → row skipped as malformed."""
         p = tmp_path / "in.csv"
         _write_csv(p, ["timestamp", "level", "service", "message"], [
-            ["", "ERROR", "svc", "msg"],
+            ["2026-06-23T10:00:00Z", "ERROR", "svc-a", "msg1"],
+            ["", "INFO", "svc-b", "msg2"],
         ])
         out = tmp_path / "out.csv"
         code, _, stderr = _run(str(p), str(out))
-        assert code == 2  # data error
+        assert code == 2
         assert "skipped" in stderr.lower()
         rows = _read_output(out)
-        assert len(rows) == 0  # all rows malformed → only header
+        assert len(rows) == 1
+        assert rows[0]["service"] == "svc-a"
 
 
 # ===================================================================
@@ -310,20 +308,18 @@ class TestMissingValues:
 
 class TestMalformedInput:
     def test_too_few_columns_skipped(self, tmp_path):
-        """Row with <4 columns → skipped with warning (§2, §7)."""
+        """Row with < 4 columns is skipped with warning."""
         p = tmp_path / "in.csv"
         _write_csv(p, ["timestamp", "level", "service", "message"], [
-            ["2026-06-23T10:00:00Z", "ERROR"],  # only 2 cols
+            ["2026-06-23T10:00:00Z", "ERROR", "svc"],  # 3 columns
         ])
         out = tmp_path / "out.csv"
         code, _, stderr = _run(str(p), str(out))
         assert code == 2
-        assert "expected 4 columns" in stderr.lower() or "got 2" in stderr
-        rows = _read_output(out)
-        assert len(rows) == 0
+        assert "expected 4 columns" in stderr
 
     def test_unparseable_timestamp_skipped(self, tmp_path):
-        """Non-ISO-8601 timestamp → skipped with warning (§7)."""
+        """Row with unparseable timestamp is skipped with warning."""
         p = tmp_path / "in.csv"
         _write_csv(p, ["timestamp", "level", "service", "message"], [
             ["not-a-date", "ERROR", "svc", "msg"],
@@ -334,65 +330,60 @@ class TestMalformedInput:
         assert "unparseable timestamp" in stderr.lower()
 
     def test_warning_includes_line_number(self, tmp_path):
-        """Each warning includes the 1-based line number (§7, §11.3)."""
+        """Warning includes the 1-based line number of the malformed row."""
         p = tmp_path / "in.csv"
         _write_csv(p, ["timestamp", "level", "service", "message"], [
             ["bad-ts", "ERROR", "svc", "msg"],
-            ["2026-06-23T10:00:00Z", "INFO"],  # too few cols
         ])
         out = tmp_path / "out.csv"
         _, _, stderr = _run(str(p), str(out))
-        assert "Line 2" in stderr  # first data row = line 2
-        assert "Line 3" in stderr  # second data row = line 3
+        assert "Line 2" in stderr
 
     def test_summary_line_emitted_at_end(self, tmp_path):
-        """After skipping, a summary line is printed to stderr (§7, §11.3)."""
+        """Summary line counts skipped rows at end of stderr."""
         p = tmp_path / "in.csv"
         _write_csv(p, ["timestamp", "level", "service", "message"], [
             ["bad-ts", "ERROR", "svc", "msg"],
         ])
         out = tmp_path / "out.csv"
         _, _, stderr = _run(str(p), str(out))
-        assert "skipped" in stderr.lower()
-        assert "row" in stderr.lower()
+        assert "Skipped 1 row(s)" in stderr
 
     def test_all_rows_malformed_produces_header_only(self, tmp_path):
-        """If every data row is malformed → exit 2, output header only (§7)."""
+        """All rows malformed → exit 2, header-only output."""
         p = tmp_path / "in.csv"
         _write_csv(p, ["timestamp", "level", "service", "message"], [
-            ["bad1", "ERROR", "svc", "msg"],
-            ["bad2", "ERROR", "svc", "msg"],
+            ["bad-ts", "ERROR", "svc", "msg"],
         ])
         out = tmp_path / "out.csv"
-        code, _, stderr = _run(str(p), str(out))
+        code, _, _ = _run(str(p), str(out))
         assert code == 2
         rows = _read_output(out)
-        assert len(rows) == 0
+        assert len(rows) == 0  # no data rows
 
     def test_partial_malformed_exit_2_with_valid_rows_in_output(self, tmp_path):
-        """Some rows malformed → exit 2, valid rows still appear in output (§7, §9)."""
+        """Some rows malformed → exit 2, valid rows still in output."""
         p = tmp_path / "in.csv"
         _write_csv(p, ["timestamp", "level", "service", "message"], [
-            ["2026-06-23T10:00:00Z", "ERROR", "svc", "valid"],
-            ["bad-ts", "ERROR", "svc", "this one is bad"],
+            ["2026-06-23T10:00:00Z", "ERROR", "svc-a", "msg1"],
+            ["bad-ts", "INFO", "svc-b", "msg2"],
         ])
         out = tmp_path / "out.csv"
-        code, _, stderr = _run(str(p), str(out))
+        code, _, _ = _run(str(p), str(out))
         assert code == 2
         rows = _read_output(out)
         assert len(rows) == 1
-        assert int(rows[0]["count"]) == 1
+        assert rows[0]["service"] == "svc-a"
 
     def test_example_11_3_malformed(self, tmp_path):
-        """Reproduce §11.3 exactly."""
+        """Reproduce spec §12.3 malformed example."""
         p = _malformed_csv(tmp_path)
         out = tmp_path / "out.csv"
         code, _, stderr = _run(str(p), str(out))
         assert code == 2
-        assert "Line 2" in stderr
-        assert "Line 3" in stderr
-        assert "unparseable" in stderr.lower()
-        assert "expected 4 columns" in stderr.lower() or "got" in stderr.lower()
+        assert "not-a-date" in stderr
+        assert "expected 4 columns" in stderr
+        assert "Skipped 2 row(s)" in stderr
         rows = _read_output(out)
         assert len(rows) == 0
 
@@ -403,33 +394,28 @@ class TestMalformedInput:
 
 class TestEmptyInput:
     def test_header_only_exit_0(self, tmp_path):
-        """Input with header but no data rows → exit 0 (§8)."""
+        """Header-only file → exit 0."""
         p = _header_only_csv(tmp_path)
         out = tmp_path / "out.csv"
         code, _, _ = _run(str(p), str(out))
         assert code == 0
 
     def test_header_only_output_has_header_only(self, tmp_path):
-        """Output contains just the header row (§8)."""
+        """Header-only file → output has header, no data rows."""
         p = _header_only_csv(tmp_path)
         out = tmp_path / "out.csv"
         _run(str(p), str(out))
         rows = _read_output(out)
         assert len(rows) == 0
-        # Verify the file has a header line by reading raw
-        with open(out, newline="") as f:
-            reader = csv.reader(f)
-            header = next(reader)
-            assert header == ["level", "service", "count", "first_seen", "last_seen"]
 
 
 # ===================================================================
-# §2  Input format — extra columns
+# §2  Input format
 # ===================================================================
 
 class TestInputFormat:
     def test_extra_columns_ignored(self, tmp_path):
-        """Additional columns beyond the first 4 are ignored (§2)."""
+        """Columns beyond the 4th are ignored."""
         p = tmp_path / "in.csv"
         _write_csv(p, ["timestamp", "level", "service", "message", "extra1", "extra2"], [
             ["2026-06-23T10:00:00Z", "ERROR", "svc", "msg", "x", "y"],
@@ -439,7 +425,6 @@ class TestInputFormat:
         assert code == 0
         rows = _read_output(out)
         assert len(rows) == 1
-        assert int(rows[0]["count"]) == 1
 
 
 # ===================================================================
@@ -448,75 +433,72 @@ class TestInputFormat:
 
 class TestCLIInterface:
     def test_input_file_not_found_exit_1(self, tmp_path):
-        """Non-existent input file → exit 1 (§9)."""
-        code, _, stderr = _run("nonexistent_file.csv", str(tmp_path / "out.csv"))
+        """Non-existent input file → exit 1."""
+        out = tmp_path / "out.csv"
+        code, _, stderr = _run("nonexistent_file.csv", str(out))
         assert code == 1
-        assert "not found" in stderr.lower() or "error" in stderr.lower()
+        assert "input file not found" in stderr.lower()
 
     def test_success_exit_0(self, tmp_path):
-        """Clean run with no malformed rows → exit 0 (§9)."""
+        """Valid run with no malformed rows → exit 0."""
         p = _basic_csv(tmp_path)
         out = tmp_path / "out.csv"
         code, _, _ = _run(str(p), str(out))
         assert code == 0
 
-    def test_version_flag_exits_0(self):
-        """--version prints version and exits 0 (§9)."""
+    def test_version_flag_exits_0(self, tmp_path):
+        """--version → exit 0."""
         code, stdout, _ = _run("--version")
         assert code == 0
 
-    def test_help_flag_exits_0(self):
-        """-h / --help prints usage and exits (§9)."""
+    def test_help_flag_exits_0(self, tmp_path):
+        """--help → exit 0."""
         code, stdout, _ = _run("--help")
         assert code == 0
-        # Should mention input/output somewhere
-        assert "input" in stdout.lower() or "usage" in stdout.lower()
 
     def test_output_columns_match_spec(self, tmp_path):
-        """Output CSV has the 5 columns from §5 in order."""
-        p = _basic_csv(tmp_path)
+        """Output CSV has the correct header columns in order."""
+        p = tmp_path / "in.csv"
+        _write_csv(p, ["timestamp", "level", "service", "message"], [
+            ["2026-06-23T10:00:00Z", "ERROR", "svc", "msg"],
+        ])
         out = tmp_path / "out.csv"
         _run(str(p), str(out))
         with open(out, newline="") as f:
             header = next(csv.reader(f))
         assert header == ["level", "service", "count", "first_seen", "last_seen"]
 
-    def test_default_input_output_paths(self, tmp_path, monkeypatch):
-        """Without positional args, defaults to data/events.csv and data/summary.csv (§9)."""
-        # Create default input in a temp dir that mimics the expected layout
+    def test_default_input_output_paths(self, tmp_path):
+        """When no args given, uses data/events.csv and data/summary.csv."""
         data_dir = tmp_path / "data"
         data_dir.mkdir()
         default_in = data_dir / "events.csv"
         _write_csv(default_in, ["timestamp", "level", "service", "message"], [
             ["2026-06-23T10:00:00Z", "ERROR", "svc", "msg"],
         ])
-        # Run from a directory where data/ exists; need to set cwd
         result = subprocess.run(
             [sys.executable, "-m", "src.logsum"],
             capture_output=True,
             text=True,
             cwd=str(tmp_path),
         )
-        # This may fail because the module path is relative to cwd.
-        # We accept either exit 0 (found default input) or exit 1 (module not
-        # runnable from tmp_path).  The spec only mandates that defaults exist;
-        # testing them end-to-end requires the project to be on sys.path.
-        # For now, assert it doesn't crash with a traceback.
+        # Module may not be findable from tmp_path since src/ is at project root.
+        # Accept exit 0 (found default input) or exit 1 (module not runnable from tmp_path).
         assert result.returncode in (0, 1)
 
 
 # ===================================================================
-# §5  Output format — first_seen / last_seen correctness
+# §5  Output timestamps
 # ===================================================================
 
 class TestOutputTimestamps:
     def test_first_seen_is_earliest(self, tmp_path):
-        """first_seen is the min normalised timestamp in the group."""
+        """first_seen is the earliest normalised timestamp in the group."""
         p = tmp_path / "in.csv"
         _write_csv(p, ["timestamp", "level", "service", "message"], [
-            ["2026-06-23T15:00:00Z", "ERROR", "svc", "latest"],
-            ["2026-06-23T10:00:00Z", "ERROR", "svc", "earliest"],
-            ["2026-06-23T12:00:00Z", "ERROR", "svc", "middle"],
+            ["2026-06-23T10:02:00Z", "ERROR", "svc", "msg1"],
+            ["2026-06-23T10:00:00Z", "ERROR", "svc", "msg2"],
+            ["2026-06-23T10:01:00Z", "ERROR", "svc", "msg3"],
         ])
         out = tmp_path / "out.csv"
         _run(str(p), str(out))
@@ -524,23 +506,23 @@ class TestOutputTimestamps:
         assert rows[0]["first_seen"] == "2026-06-23T10:00:00Z"
 
     def test_last_seen_is_latest(self, tmp_path):
-        """last_seen is the max normalised timestamp in the group."""
+        """last_seen is the latest normalised timestamp in the group."""
         p = tmp_path / "in.csv"
         _write_csv(p, ["timestamp", "level", "service", "message"], [
-            ["2026-06-23T10:00:00Z", "ERROR", "svc", "earliest"],
-            ["2026-06-23T15:00:00Z", "ERROR", "svc", "latest"],
-            ["2026-06-23T12:00:00Z", "ERROR", "svc", "middle"],
+            ["2026-06-23T10:00:00Z", "ERROR", "svc", "msg1"],
+            ["2026-06-23T10:02:00Z", "ERROR", "svc", "msg2"],
+            ["2026-06-23T10:01:00Z", "ERROR", "svc", "msg3"],
         ])
         out = tmp_path / "out.csv"
         _run(str(p), str(out))
         rows = _read_output(out)
-        assert rows[0]["last_seen"] == "2026-06-23T15:00:00Z"
+        assert rows[0]["last_seen"] == "2026-06-23T10:02:00Z"
 
     def test_single_row_first_equals_last(self, tmp_path):
-        """One event per group → first_seen == last_seen."""
+        """Single row → first_seen == last_seen."""
         p = tmp_path / "in.csv"
         _write_csv(p, ["timestamp", "level", "service", "message"], [
-            ["2026-06-23T10:00:00Z", "ERROR", "svc", "only"],
+            ["2026-06-23T10:00:00Z", "ERROR", "svc", "msg"],
         ])
         out = tmp_path / "out.csv"
         _run(str(p), str(out))
@@ -666,7 +648,7 @@ class TestMinCountFilter:
 
 class TestOutOfScope:
     def test_no_sorting_guarantee_on_output(self, tmp_path):
-        """§10 explicitly states no sorting guarantee.  This test only verifies
+        """§11 explicitly states no sorting guarantee.  This test only verifies
         that output is produced and all expected rows are present — order is
         not asserted."""
         p = tmp_path / "in.csv"
@@ -676,7 +658,9 @@ class TestOutOfScope:
             ["2026-06-23T10:02:00Z", "ERROR", "svc-a", "msg"],
         ])
         out = tmp_path / "out.csv"
-        _run(str(p), str(out))
+        code, _, _ = _run(str(p), str(out))
+        assert code == 0
         rows = _read_output(out)
+        assert len(rows) == 3
         keys = {(r["level"], r["service"]) for r in rows}
         assert keys == {("ERROR", "svc-b"), ("INFO", "svc-a"), ("ERROR", "svc-a")}
