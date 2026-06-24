@@ -55,6 +55,13 @@ def _build_parser():
     parser.add_argument(
         "--version", action="version", version="logsum 0.1.0"
     )
+    parser.add_argument(
+        "--min-count",
+        type=int,
+        default=0,
+        metavar="N",
+        help="output only groups with count >= N (default: 0, i.e. no filtering)",
+    )
     return parser
 
 
@@ -143,6 +150,13 @@ def main():
         sys.exit(1)
 
     groups, skipped = _read_and_aggregate(input_path)
+
+    if args.min_count > 0:
+        groups = {
+            key: g for key, g in groups.items()
+            if g["count"] >= args.min_count
+        }
+
     _write_summary(Path(args.output), groups)
 
     if skipped > 0:

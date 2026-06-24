@@ -549,7 +549,119 @@ class TestOutputTimestamps:
 
 
 # ===================================================================
-# §10  Out-of-scope — non-sorting
+# §10  Min-count filtering
+# ===================================================================
+
+class TestMinCountFilter:
+    def test_flag_not_set_outputs_all_groups(self, tmp_path):
+        """When --min-count is omitted, all groups appear in output."""
+        p = tmp_path / "in.csv"
+        _write_csv(p, ["timestamp", "level", "service", "message"], [
+            ["2026-06-23T10:00:00Z", "ERROR", "svc-a", "msg1"],
+            ["2026-06-23T10:01:00Z", "INFO", "svc-b", "msg2"],
+            ["2026-06-23T10:02:00Z", "ERROR", "svc-a", "msg3"],
+        ])
+        out = tmp_path / "out.csv"
+        code, _, _ = _run(str(p), str(out))
+        assert code == 0
+        rows = _read_output(out)
+        assert len(rows) == 2
+        counts = {int(r["count"]) for r in rows}
+        assert counts == {2, 1}
+
+    def test_min_count_2_excludes_groups_with_count_1(self, tmp_path):
+        """--min-count 2 drops groups whose count < 2."""
+        p = tmp_path / "in.csv"
+        _write_csv(p, ["timestamp", "level", "service", "message"], [
+            ["2026-06-23T10:00:00Z", "ERROR", "svc-a", "msg1"],
+            ["2026-06-23T10:01:00Z", "ERROR", "svc-a", "msg2"],
+            ["2026-06-23T10:02:00Z", "INFO", "svc-b", "msg3"],
+        ])
+        out = tmp_path / "out.csv"
+        code, _, _ = _run(str(p), str(out), "--min-count", "2")
+        assert code == 0
+        rows = _read_output(out)
+        assert len(rows) == 1
+        assert rows[0]["level"] == "ERROR"
+        assert rows[0]["service"] == "svc-a"
+        assert int(rows[0]["count"]) == 2
+
+    def test_min_count_equal_to_count_preserves_group(self, tmp_path):
+        """A group with count == N is preserved (>= semantics)."""
+        p = tmp_path / "in.csv"
+        _write_csv(p, ["timestamp", "level", "service", "message"], [
+            ["2026-06-23T10:00:00Z", "ERROR", "svc-a", "msg1"],
+            ["2026-06-23T10:01:00Z", "ERROR", "svc-a", "msg2"],
+            ["2026-06-23T10:02:00Z", "INFO", "svc-b", "msg3"],
+        ])
+        out = tmp_path / "out.csv"
+        code, _, _ = _run(str(p), str(out), "--min-count", "2")
+        assert code == 0
+        rows = _read_output(out)
+        assert len(rows) == 1
+        assert int(rows[0]["count"]) == 2
+
+    def test_min_count_larger_than_max_count_produces_header_only(self, tmp_path):
+        """--min-count value exceeding all group counts → header-only output, exit 0."""
+        p = tmp_path / "in.csv"
+        _write_csv(p, ["timestamp", "level", "service", "message"], [
+            ["2026-06-23T10:00:00Z", "ERROR", "svc-a", "msg1"],
+            ["2026-06-23T10:01:00Z", "INFO", "svc-b", "msg2"],
+        ])
+        out = tmp_path / "out.csv"
+        code, _, _ = _run(str(p), str(out), "--min-count", "100")
+        assert code == 0
+        rows = _read_output(out)
+        assert len(rows) == 0
+        with open(out, newline="") as f:
+            header = next(csv.reader(f))
+        assert header == ["level", "service", "count", "first_seen", "last_seen"]
+
+    def test_min_count_zero_outputs_all_groups(self, tmp_path):
+        """Explicit --min-count 0 behaves identically to omitting the flag."""
+        p = tmp_path / "in.csv"
+        _write_csv(p, ["timestamp", "level", "service", "message"], [
+            ["2026-06-23T10:00:00Z", "ERROR", "svc-a", "msg1"],
+            ["2026-06-23T10:01:00Z", "INFO", "svc-b", "msg2"],
+        ])
+        out = tmp_path / "out.csv"
+        code, _, _ = _run(str(p), str(out), "--min-count", "0")
+        assert code == 0
+        rows = _read_output(out)
+        assert len(rows) == 2
+
+    def test_min_count_with_malformed_rows_exit_2(self, tmp_path):
+        """When rows are malformed AND --min-count filters, exit 2 takes precedence."""
+        p = tmp_path / "in.csv"
+        _write_csv(p, ["timestamp", "level", "service", "message"], [
+            ["2026-06-23T10:00:00Z", "ERROR", "svc-a", "msg1"],
+            ["2026-06-23T10:01:00Z", "ERROR", "svc-a", "msg2"],
+            ["bad-ts", "INFO", "svc-b", "malformed"],
+        ])
+        out = tmp_path / "out.csv"
+        code, _, stderr = _run(str(p), str(out), "--min-count", "2")
+        assert code == 2
+        assert "skipped" in stderr.lower()
+        rows = _read_output(out)
+        assert len(rows) == 1
+        assert rows[0]["level"] == "ERROR"
+        assert int(rows[0]["count"]) == 2
+
+    def test_min_count_combined_with_basic_scenario(self, tmp_path):
+        """Reproduce the basic scenario (§12.1) with --min-count 2 applied."""
+        p = _basic_csv(tmp_path)
+        out = tmp_path / "out.csv"
+        code, _, _ = _run(str(p), str(out), "--min-count", "2")
+        assert code == 0
+        rows = _read_output(out)
+        assert len(rows) == 1
+        assert rows[0]["level"] == "ERROR"
+        assert rows[0]["service"] == "payment-svc"
+        assert int(rows[0]["count"]) == 2
+
+
+# ===================================================================
+# §11  Out-of-scope — non-sorting
 # ===================================================================
 
 class TestOutOfScope:
